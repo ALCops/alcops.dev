@@ -1,0 +1,13 @@
+# Generated files by hugo
+public/
+node_modules/
+resources/_gen/
+
+# Executable may be added to repository
+hugo.exe
+hugo.darwin
+hugo.linux
+
+## Locking files for when working with local servers
+.hugo_build.lock
+package-lock.json
