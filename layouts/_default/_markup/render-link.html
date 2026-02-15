@@ -1,0 +1,7 @@
+{{- $url := .Destination -}}
+{{- if not (urls.Parse .Destination).Host -}}
+  {{- $url = .Destination | lower -}}
+{{- end -}}
+<a href="{{ $url }}"
+  {{- with .Title }} title="{{ . }}"{{ end -}}
+>{{ .Text | safeHTML }}</a>
