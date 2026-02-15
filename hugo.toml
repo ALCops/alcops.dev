@@ -8,8 +8,50 @@ proxy = "direct"
 path = "github.com/google/docsy"
 
 [params]
+description = "The reference for AL code analyzer rules in Business Central"
+github_repo = "https://github.com/alcops/"
+offlineSearch = true
 [params.ui]
 showLightDarkModeMenu = true
+sidebar_menu_compact = true
+sidebar_menu_foldable = true
+ul_show = 1
+
+[markup]
+[markup.goldmark]
+[markup.goldmark.parser]
+[markup.goldmark.parser.attribute]
+block = true
+[markup.goldmark.renderer]
+unsafe = true
+
+[[menus.main]]
+name = "Docs"
+weight = 96
+url = "docs/"
+pre = "<i class='fa-solid fa-book'></i>"
+post = ""
+
+[[menus.main]]
+name = "Discussions"
+weight = 97
+url = "https://github.com/ALCops/Analyzers/discussions"
+pre = "<i class='fa-solid fa-comments'></i>"
+post = ""
+
+[[menus.main]]
+name = "VS Code"
+weight = 98
+url = "https://marketplace.visualstudio.com/items?itemName=Arthurvdv.alcops"
+pre = "<i class='fa-solid fa-puzzle-piece'></i>"
+post = ""
+
+[[menus.main]]
+name = "GitHub"
+weight = 99
+url = "https://github.com/alcops"
+pre = "<i class='fab fa-github'></i>"
+post = ""
 
 [caches]
   [caches.images]
