@@ -1,0 +1,28 @@
+version: 2
+updates:
+  # Update GitHub Actions (actions/checkout, actions/deploy-pages, etc.)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "github-actions"
+
+  # Update Go modules (docsy theme)
+  - package-ecosystem: "gomod"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "go-modules"
+
+  # Update npm dependencies (autoprefixer, postcss, etc.)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "dependencies"
+      - "npm"
