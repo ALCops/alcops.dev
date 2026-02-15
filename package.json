@@ -50,7 +50,7 @@
     "postcss-value-parser": "^4.2.0",
     "pretty-hrtime": "^1.0.3",
     "read-cache": "^1.0.0",
-    "readdirp": "^3.6.0",
+    "readdirp": "^5.0.0",
     "require-directory": "^2.1.1",
     "slash": "^5.1.0",
     "source-map-js": "^1.2.1",
