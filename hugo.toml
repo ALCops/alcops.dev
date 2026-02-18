@@ -8,8 +8,8 @@ proxy = "direct"
 path = "github.com/google/docsy"
 
 [params]
-description = "The reference for AL code analyzer rules in Business Central"
-github_repo = "https://github.com/alcops/"
+description = "A community driven collection of code analyzers for the AL programming language of Microsoft Dynamics 365 Business Central."
+github_repo = "https://github.com/ALCops/alcops.dev"
 offlineSearch = true
 [params.ui]
 showLightDarkModeMenu = true

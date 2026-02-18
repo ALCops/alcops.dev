@@ -1,6 +1,6 @@
 ---
 title: "ALCops.dev"
-description: "The reference for AL code analyzers in Business Central"
+description: "A community driven collection of code analyzers for the AL programming language of Microsoft Dynamics 365 Business Central."
 ---
 
 {{% blocks/cover title="ALCops.dev" height="full" color="primary" %}}

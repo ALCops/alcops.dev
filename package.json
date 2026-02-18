@@ -4,9 +4,9 @@
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1"
   },
-  "name": "website",
+  "name": "alcops-dev",
   "version": "1.0.0",
-  "description": "",
+  "description": "A community driven collection of code analyzers for the AL programming language of Microsoft Dynamics 365 Business Central.",
   "main": "index.js",
   "dependencies": {
     "ansi-regex": "^5.0.1",
