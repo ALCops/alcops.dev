@@ -30,10 +30,6 @@ Add the `customCodeCops` property to your AL-Go `settings.json` (typically `.git
 
 AL-Go downloads the DLLs at build time and passes them to the compiler automatically.
 
-{{% alert title="Tip" %}}
-Pair `customCodeCops` with `"vsixFile": "latest"` to ensure the compiler version matches the latest AL Language extension. For prerelease testing, use `"vsixFile": "preview"` and the corresponding prerelease analyzer DLLs.
-{{% /alert %}}
-
 ### AL-Go Helper
 
 ALCops provides a dedicated [AL-Go helper](https://github.com/ALCops/AL-Go) that automates analyzer download and setup using AL-Go's pipeline hook mechanism. This is the simplest way to keep your analyzers up to date.
