@@ -1,5 +1,6 @@
 ---
 title: "Analyzers"
+weight: 20
 type: docs
 no_list: true
 ---
