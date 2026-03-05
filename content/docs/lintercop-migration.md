@@ -1,7 +1,7 @@
 ---
 title: "Migrating from BusinessCentral.LinterCop"
 linkTitle: "LinterCop Migration"
-weight: 10
+weight: 30
 ---
 
 The [BusinessCentral.LinterCop](https://github.com/StefanMaron/BusinessCentral.LinterCop) project has been the foundation for community-driven AL code analysis and it's rules and diagnostics are now part of ALCops
