@@ -15,7 +15,7 @@ Add the `customCodeCops` property to your AL-Go `settings.json` (typically `.git
 
 ```json
 {
-  "enableCodeCops": true,
+  "enableCodeCop": true,
   "customCodeCops": [
     ".alcops/ALCops.ApplicationCop.dll",
     ".alcops/ALCops.DocumentationCop.dll",
@@ -28,7 +28,7 @@ Add the `customCodeCops` property to your AL-Go `settings.json` (typically `.git
 }
 ```
 
-AL-Go downloads the DLLs at build time and passes them to the compiler automatically.
+AL-Go downloads the DLLs at build time and passes them to the compiler automatically. For a full list of AL-Go settings, see the [AL-Go advanced settings reference](https://github.com/microsoft/AL-Go/blob/main/Scenarios/settings.md#advanced-settings).
 
 ### AL-Go Helper
 
