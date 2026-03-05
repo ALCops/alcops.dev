@@ -30,7 +30,7 @@ The ALCops status bar item at the bottom of VS Code lets you quickly enable or d
 Click the ALCops status bar item to enable or disable individual analyzers.
 {{< /imgproc >}}
 
-Changes take effect immediately — no need to reload the window.
+After changing your selection, reload the VS Code window (`Ctrl+Shift+P` → **Developer: Reload Window**) for the AL Language Server to pick up the updated analyzer configuration.
 
 ## Extension Settings
 

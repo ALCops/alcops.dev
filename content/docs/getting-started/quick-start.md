@@ -15,7 +15,7 @@ Here is a small sample of what ALCops detects. Browse the full [rules reference]
 
 User-facing controls need explicit captions for a consistent and localizable UI.
 
-{{< tabpane >}}
+{{< tabpane persist=false >}}
 {{< tab header="Before" lang="al" >}}
 action(MyAction)
 {
@@ -40,11 +40,10 @@ action(MyAction)
 
 Single-field primary keys of type Code or Text must set `NotBlank` to prevent empty key values.
 
-{{< tabpane >}}
+{{< tabpane persist=false >}}
 {{< tab header="Before" lang="al" >}}
 table 50100 MyTable
 {
-    fields
     {
         field(1; "No."; Code[20]) { }
     }
