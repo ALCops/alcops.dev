@@ -15,16 +15,16 @@ Add the `customCodeCops` property to your AL-Go `settings.json` (typically `.git
 
 ```json
 {
-    "enableCodeCops": true,
-    "customCodeCops": [
-        "ALCops.ApplicationCop.dll",
-        "ALCops.DocumentationCop.dll",
-        "ALCops.FormattingCop.dll",
-        "ALCops.LinterCop.dll",
-        "ALCops.PlatformCop.dll",
-        "ALCops.TestAutomationCop.dll",
-        "ALCops.Common.dll"
-    ]
+  "enableCodeCops": true,
+  "customCodeCops": [
+    ".alcops/ALCops.ApplicationCop.dll",
+    ".alcops/ALCops.DocumentationCop.dll",
+    ".alcops/ALCops.FormattingCop.dll",
+    ".alcops/ALCops.LinterCop.dll",
+    ".alcops/ALCops.PlatformCop.dll",
+    ".alcops/ALCops.TestAutomationCop.dll",
+    ".alcops/ALCops.Common.dll"
+  ]
 }
 ```
 
