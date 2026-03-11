@@ -31,7 +31,7 @@
     "get-caller-file": "^2.0.5",
     "glob-parent": "^5.1.2",
     "graceful-fs": "^4.2.11",
-    "is-binary-path": "^2.1.0",
+    "is-binary-path": "^3.0.0",
     "is-extglob": "^2.1.1",
     "is-fullwidth-code-point": "^5.1.0",
     "is-glob": "^4.0.3",
