@@ -16,7 +16,7 @@
     "binary-extensions": "^3.1.0",
     "braces": "^3.0.3",
     "browserslist": "^4.28.0",
-    "caniuse-lite": "^1.0.30001775",
+    "caniuse-lite": "^1.0.30001779",
     "chokidar": "^5.0.0",
     "cliui": "^9.0.1",
     "color-convert": "^3.1.3",
