@@ -15,7 +15,7 @@
     "baseline-browser-mapping": "^2.10.12",
     "binary-extensions": "^3.1.0",
     "braces": "^3.0.3",
-    "browserslist": "^4.28.0",
+    "browserslist": "^4.28.2",
     "caniuse-lite": "^1.0.30001779",
     "chokidar": "^5.0.0",
     "cliui": "^9.0.1",
