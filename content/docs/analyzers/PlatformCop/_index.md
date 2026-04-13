@@ -21,7 +21,7 @@ The PlatformCop detects code that is technically broken, dangerous, or silently 
 | [PC0010](pc0010/) | EventSubscriber var keyword | Warning | ✓ | ✓ |
 | [PC0011](pc0011/) | EventPublisher IsHandled by var | Warning | ✓ | ✓ |
 | [PC0012](pc0012/) | FlowFilter field assignment | Warning | ✓ | |
-| [PC0013](pc0013/) | Record.Get procedure arguments | Warning | ✓ | |
+| [PC0013](pc0013/) | Record.Get procedure arguments | Error | ✓ | |
 | [PC0014](pc0014/) | JsonToken JPath uses double quotes | Warning | ✓ | ✓ |
 | [PC0015](pc0015/) | Guid empty string comparison | Warning | ✓ | ✓ |
 | [PC0016](pc0016/) | Clear codeunit SingleInstance | Warning | ✓ | |
