@@ -9,7 +9,7 @@
   "description": "A community driven collection of code analyzers for the AL programming language of Microsoft Dynamics 365 Business Central.",
   "main": "index.js",
   "dependencies": {
-    "ansi-regex": "^5.0.1",
+    "ansi-regex": "^6.2.2",
     "ansi-styles": "^6.2.3",
     "anymatch": "^3.1.3",
     "baseline-browser-mapping": "^2.10.15",
