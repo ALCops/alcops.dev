@@ -11,7 +11,7 @@ ALCops analyzers run anywhere the AL compiler runs. In CI/CD pipelines, the comp
 |----------|----------|------|
 | **GitHub** | AL-Go for GitHub (recommended) | [GitHub](github/) |
 | **GitHub** | Custom GitHub Actions with BcContainerHelper or `alc.exe` | [GitHub](github/) |
-| **Azure DevOps** | ALCops extension (coming soon) | [Azure DevOps](azure-devops/) |
+| **Azure DevOps** | ALCops extension | [Azure DevOps](azure-devops/) |
 | **Azure DevOps** | ALOps extension | [Azure DevOps](azure-devops/) |
 | **Azure DevOps** | Custom pipelines with BcContainerHelper or `alc.exe` | [Azure DevOps](azure-devops/) |
 
