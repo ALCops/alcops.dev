@@ -57,7 +57,7 @@
     "string-width": "^8.1.1",
     "strip-ansi": "^7.2.0",
     "thenby": "^1.3.4",
-    "tinyglobby": "^0.2.15",
+    "tinyglobby": "^0.2.16",
     "to-regex-range": "^5.0.1",
     "universalify": "^2.0.1",
     "update-browserslist-db": "^1.1.4",
