@@ -37,3 +37,4 @@ The PlatformCop detects code that is technically broken, dangerous, or silently 
 | [PC0026](pc0026/) | Mandatory field missing on API page | Warning | ✓ | ✓ |
 | [PC0027](pc0027/) | Temporary record trigger invocation | Warning | ✓ | |
 | [PC0028](pc0028/) | TableRelation field length | Warning | ✓ | |
+| [PC0029](pc0029/) | Use CreateSequentialGuid for key fields | Info | ✓ | ✓ |
