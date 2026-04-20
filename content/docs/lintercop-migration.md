@@ -112,6 +112,7 @@ If you are currently using the BusinessCentral.LinterCop, use the mapping below 
 | LC0091 | Translatable texts should be translated. | ApplicationCop | — |
 | LC0092 | Names must match the allowed pattern and must not match the disallowed pattern. | LinterCop | — |
 | LC0093 | Global procedure in test codeunit requires test attribute. | TestAutomationCop | [TA0001](../analyzers/testautomationcop/ta0001/) |
+| LC0094 | A method invoked on a record must not contain same variable in parameter list as the one on which the call was made. | LinterCop | [LC0096](../analyzers/lintercop/lc0096/) |
 
 Entries marked with **—** do not have a new diagnostic ID assigned (yet).
 
