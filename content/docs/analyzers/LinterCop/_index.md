@@ -36,5 +36,4 @@ The LinterCop is a code linter for AL, comparable to widely used static analysis
 | [LC0090](lc0090/) | Cognitive Complexity threshold exceeded | Warning | ✓ | |
 | [LC0091](lc0091/) | Translatable text should be translated | Warning | ✓ | |
 | [LC0094](lc0094/) | AllowInCustomizations redundancy | Warning | ✓ | ✓ |
-| [LC0095](lc0095/) | Use partial records on read operation | Info | ✓ | ✓ |
 | [LC0096](lc0096/) | Unnecessary record parameter in method call | Warning | ✓ | |

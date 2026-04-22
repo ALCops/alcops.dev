@@ -38,3 +38,5 @@ The PlatformCop detects code that is technically broken, dangerous, or silently 
 | [PC0027](pc0027/) | Temporary record trigger invocation | Warning | ✓ | |
 | [PC0028](pc0028/) | TableRelation field length | Warning | ✓ | |
 | [PC0029](pc0029/) | Use CreateSequentialGuid for key fields | Info | ✓ | ✓ |
+| [PC0030](pc0030/) | Use partial records on read operation | Info | ✓ | ✓ |
+| [PC0031](pc0031/) | Do not use partial records before write operations | Warning | ✓ | ✓ |
