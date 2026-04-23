@@ -40,3 +40,5 @@ The PlatformCop detects code that is technically broken, dangerous, or silently 
 | [PC0029](pc0029/) | Use CreateSequentialGuid for key fields | Info | ✓ | ✓ |
 | [PC0030](pc0030/) | Use partial records on read operation | Info | ✓ | ✓ |
 | [PC0031](pc0031/) | Do not use partial records before write operations | Warning | ✓ | ✓ |
+| [PC0032](pc0032/) | Report layout property exceeds maximum length | Error | ✓ | |
+| [PC0033](pc0033/) | Duplicate OData EntityName on page controls | Warning | ✓ | |
