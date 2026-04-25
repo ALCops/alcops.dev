@@ -40,6 +40,6 @@ The ApplicationCop enforces Business Central application conventions and design 
 | [AC0028](ac0028/) | Table field must define a ToolTip | Info | ✓ | |
 | [AC0029](ac0029/) | Duplicate ToolTip between page and table field | Info | ✓ | |
 | [AC0030](ac0030/) | Use return value for better error handling | Info | ✓ | |
-| [AC0031](ac0031/) | Informs the user that there are missing permission to access tabledata | Info | ✓ | |
+| [AC0031](ac0031/) | Informs the user that there are missing permission to access tabledata | Info | ✓ | ✓ |
 
 **Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's `.editorconfig` or ruleset file.
