@@ -58,9 +58,8 @@ Pass a value to `detectUsing` and the task figures out the correct detection sou
 inputs:
   detectUsing: "$(artifactUrl)"    # URL → bc-artifact
   detectUsing: "$(compilerFolder)" # Path → compiler-path
-  detectUsing: "26.0.12345.0"     # Version number → nuget-devtools → marketplace (fallback)
+  detectUsing: "26.0.12345.0"      # Version number → nuget-devtools → marketplace (fallback)
   detectUsing: "latest"            # String → nuget-devtools
-  detectUsing: "preview"           # String → nuget-devtools
 ```
 
 ### 2. Explicit detection source
@@ -70,21 +69,21 @@ Set `detectFrom` to force a specific detection source. This is useful when the a
 ```yaml
 inputs:
   detectUsing: "preview"
-  detectFrom: "nuget-devtools"
+  detectFrom: "marketplace"
 ```
 
-### 3. Explicit TFM (discouraged)
-
-{{% alert title="Avoid hardcoding the target framework" color="warning" %}}
-Hardcoding `tfm` works today but **will break** when Microsoft updates the AL Language to a newer .NET version. When that happens, your pipeline will download analyzers built for the wrong runtime, causing load failures or incorrect results.
-
-Use auto-detection or an explicit detection source instead.
-{{% /alert %}}
+### 3. Explicit TFM
 
 ```yaml
 inputs:
   tfm: "net8.0"
 ```
+
+{{% alert title="Avoid hardcoding the target framework" color="warning" %}}
+Hardcoding `tfm` works today but **could break** when Microsoft updates the AL Language to a newer .NET version. When that happens, your pipeline will download analyzers built for the wrong runtime, causing load failures or incorrect results.
+
+Use auto-detection or an explicit detection source instead.
+{{% /alert %}}
 
 ## ALOps integration
 
