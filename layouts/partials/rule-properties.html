@@ -1,0 +1,43 @@
+{{- with .Params.severity -}}
+<div class="rule-properties">
+  <table class="table table-sm">
+    <tbody>
+      <tr>
+        <th>Default Severity</th>
+        <td>{{ . }}</td>
+      </tr>
+      {{- with $.Params.category }}
+      <tr>
+        <th>Category</th>
+        <td>{{ . }}</td>
+      </tr>
+      {{- end }}
+      {{- if isset $.Params "codeaction" }}
+      <tr>
+        <th>Code Action</th>
+        <td>
+          {{- if $.Params.codeAction -}}
+            Yes
+            {{- with $.Params.codeActionType }} ({{ . }}){{ end -}}
+          {{- else -}}
+            No
+          {{- end -}}
+        </td>
+      </tr>
+      {{- end }}
+      {{- if and (isset $.Params "codeaction") $.Params.codeAction (isset $.Params "supportsfixall") }}
+      <tr>
+        <th>Supports Fix All</th>
+        <td>{{ if $.Params.supportsFixAll }}Yes{{ else }}No{{ end }}</td>
+      </tr>
+      {{- end }}
+      {{- if isset $.Params "ignoresobsoletepending" }}
+      <tr>
+        <th>Ignores Obsolete Pending</th>
+        <td>{{ if $.Params.ignoresObsoletePending }}Yes{{ else }}No{{ end }}</td>
+      </tr>
+      {{- end }}
+    </tbody>
+  </table>
+</div>
+{{- end -}}

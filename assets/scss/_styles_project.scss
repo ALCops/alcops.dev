@@ -1,3 +1,17 @@
 .navbar-brand__name {
   display: none;
 }
+
+.rule-properties {
+  margin-bottom: 1.5rem;
+
+  table {
+    width: auto;
+    min-width: 300px;
+  }
+
+  th {
+    white-space: nowrap;
+    font-weight: 600;
+  }
+}
