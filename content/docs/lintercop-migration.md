@@ -76,7 +76,7 @@ If you are currently using the BusinessCentral.LinterCop, use the mapping below 
 | LC0055 | The suffix Tok is meant to be used when the value of the label matches the name. | ApplicationCop | [AC0027](../analyzers/applicationcop/ac0027/) |
 | LC0056 | Empty Enum values should not have a specified Caption property. | ApplicationCop | [AC0022](../analyzers/applicationcop/ac0022/) |
 | LC0057 | Enum values must have non-empty a Caption to be selectable in the client. | ApplicationCop | [AC0023](../analyzers/applicationcop/ac0023/) |
-| LC0058 | PageVariable.SetRecord(): You cannot use a temporary record for the Record parameter. | PlatformCop | — |
+| LC0058 | PageVariable.SetRecord(): You cannot use a temporary record for the Record parameter. | PlatformCop | [PC0036](../analyzers/platformcop/pc0036/) |
 | LC0059 | Single quote escaping issue detected. | PlatformCop | [PC0019](../analyzers/platformcop/pc0019/) |
 | LC0060 | The ApplicationArea property is not applicable to API pages. | PlatformCop | [PC0024](../analyzers/platformcop/pc0024/) |
 | LC0061 | Pages of type API must have the ODataKeyFields property set to the SystemId field. | PlatformCop | [PC0025](../analyzers/platformcop/pc0025/) |
