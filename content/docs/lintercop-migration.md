@@ -110,7 +110,7 @@ If you are currently using the BusinessCentral.LinterCop, use the mapping below 
 | LC0089 | Show Cognitive Complexity diagnostics for all methods. | LinterCop | [LC0089](../analyzers/lintercop/lc0089/) |
 | LC0090 | Show Cognitive Complexity diagnostics for methods above threshold. | LinterCop | [LC0090](../analyzers/lintercop/lc0090/) |
 | LC0091 | Translatable texts should be translated. | ApplicationCop | — |
-| LC0092 | Names must match the allowed pattern and must not match the disallowed pattern. | LinterCop | — |
+| LC0092 | Names must match the allowed pattern and must not match the disallowed pattern. | LinterCop | [LC0092](../analyzers/lintercop/lc0092/) |
 | LC0093 | Global procedure in test codeunit requires test attribute. | TestAutomationCop | [TA0001](../analyzers/testautomationcop/ta0001/) |
 | LC0094 | A method invoked on a record must not contain same variable in parameter list as the one on which the call was made. | LinterCop | [LC0096](../analyzers/lintercop/lc0096/) |
 
