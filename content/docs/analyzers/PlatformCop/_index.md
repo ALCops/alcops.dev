@@ -43,3 +43,5 @@ The PlatformCop detects code that is technically broken, dangerous, or silently 
 | [PC0032](pc0032/) | Report layout property exceeds maximum length | Error | ✓ | |
 | [PC0033](pc0033/) | Duplicate OData EntityName on page controls | Warning | ✓ | |
 | [PC0034](pc0034/) | Placeholder argument count mismatch | Warning | ✓ | |
+| [PC0035](pc0035/) | Use SetAutoCalcFields for loops | Warning | ✓ | ✓ |
+| [PC0036](pc0036/) | SetRecord() does not support temporary records | Warning | ✓ | |
