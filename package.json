@@ -39,7 +39,7 @@
     "jsonfile": "^6.2.1",
     "lilconfig": "^3.1.3",
     "nanoid": "^5.1.11",
-    "node-releases": "^2.0.38",
+    "node-releases": "^2.0.46",
     "normalize-path": "^3.0.0",
     "normalize-range": "^0.1.2",
     "picocolors": "^1.1.1",
