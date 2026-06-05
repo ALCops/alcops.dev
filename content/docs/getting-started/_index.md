@@ -29,7 +29,7 @@ Run ALCops as part of your build to catch issues before they reach production:
 
 ### Configuration
 
-After installation, see [Configuration](configuration/) to learn how to enable, disable, or adjust individual rules using `.editorconfig`, `.ruleset.json`, `ALCops.json`, and `#pragma` directives.
+After installation, see [Configuration](configuration/) to learn how to enable, disable, or adjust individual rules using `.ruleset.json`, `alcops.json` and `#pragma` directives.
 
 ### Migrating from LinterCop?
 

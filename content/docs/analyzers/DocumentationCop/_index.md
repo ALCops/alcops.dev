@@ -16,4 +16,4 @@ The DocumentationCop ensures that AL code is properly documented and that non-ob
 | [DC0004](dc0004/) | Public procedure requires XML documentation | Info | — | |
 | [DC0005](dc0005/) | XML documentation must match procedure signature | Warning | ✓ | |
 
-**Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's `.editorconfig` or ruleset file.
+**Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's ruleset file.

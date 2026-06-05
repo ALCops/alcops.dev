@@ -7,25 +7,66 @@ type: docs
 
 ALCops supports several mechanisms to configure which rules are active and how they behave. These mechanisms work across all environments: VS Code, command line, and CI/CD pipelines.
 
-## ALCops.json
+## alcops.json
 
-The `ALCops.json` file provides analyzer-specific configuration. Place it in the root of your AL project alongside `app.json`.
+The `alcops.json` file provides analyzer-specific configuration. Place it in the root of your AL project alongside `app.json`.
 
 ```json
 {
-    "analyzers": {
-        "ApplicationCop": {
-            "enabled": true
+    "cognitiveComplexityThreshold": 15,
+    "cyclomaticComplexityThreshold": 8,
+    "maintainabilityIndexThreshold": 20
+}
+```
+
+### Available properties
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `cognitiveComplexityThreshold` | integer | `15` | Maximum cognitive complexity before a diagnostic is reported |
+| `cyclomaticComplexityThreshold` | integer | `8` | Maximum cyclomatic complexity before a diagnostic is reported |
+| `maintainabilityIndexThreshold` | integer | `20` | Minimum maintainability index before a diagnostic is reported |
+| `languagesToTranslate` | string[] | `null` | Language codes to check for missing translations |
+| `namingPatterns` | object | `null` | Per-target naming pattern overrides |
+| `useSequentialGuidScope` | string | `null` | Set to `"AllGuidFields"` to require sequential GUIDs on all GUID fields |
+
+Property names are case-insensitive. Comments and trailing commas are allowed.
+
+### namingPatterns
+
+Override the default naming validation patterns per target. Each target accepts `allowPattern`, `disallowPattern`, `allowDescription`, and `disallowDescription`.
+
+```json
+{
+    "namingPatterns": {
+        "Variable": {
+            "allowPattern": "^[A-Z]",
+            "allowDescription": "should start with an uppercase letter"
         },
-        "LinterCop": {
-            "enabled": true
+        "EnumValue": {
+            "disallowPattern": "^_",
+            "disallowDescription": "should not start with an underscore"
         }
     }
 }
 ```
 
+Valid targets: `Procedure`, `LocalProcedure`, `GlobalProcedure`, `EventSubscriber`, `EventDeclaration`, `Variable`, `Parameter`, `ReturnValue`, `Object`, `Field`, `Action`, `EnumValue`, `Control`.
+
+`LocalProcedure`, `GlobalProcedure`, `EventSubscriber`, and `EventDeclaration` inherit from `Procedure` when no explicit override is configured.
+
+### languagesToTranslate
+
+Specify which language codes must have translations present in the `.xlf` files.
+
+```json
+{
+    "languagesToTranslate": ["da-DK", "de-DE"]
+}
+```
+
 {{% alert title="Note" %}}
-The `ALCops.json` file is read when the analyzer loads. In VS Code, changes to this file require reloading the window (`Ctrl+Shift+P` → **Developer: Reload Window**) to take effect.
+The `alcops.json` file is read when the analyzer loads. In VS Code, changes to this file require reloading the window (`Ctrl+Shift+P` → **Developer: Reload Window**) to take effect.
 {{% /alert %}}
 
 ## Ruleset Files (.ruleset.json)

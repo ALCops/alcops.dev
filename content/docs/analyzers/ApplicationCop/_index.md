@@ -43,4 +43,4 @@ The ApplicationCop enforces Business Central application conventions and design 
 | [AC0031](ac0031/) | Informs the user that there are missing permission to access tabledata | Info | ✓ | ✓ |
 | [AC0032](ac0032/) | Unused permission declared | Info | ✓ | ✓ |
 
-**Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's `.editorconfig` or ruleset file.
+**Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's ruleset file.
