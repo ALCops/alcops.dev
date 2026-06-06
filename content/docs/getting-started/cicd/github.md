@@ -46,7 +46,7 @@ Which hook script you need depends on whether [workspace compilation](https://gi
 | Disabled (default) | `PipelineInitialize.ps1` |
 | Enabled | `PreCompileApp.ps1` |
 
-`PipelineInitialize.ps1` runs only when workspace compilation is disabled. When workspace compilation is enabled, AL-Go skips this hook entirely and uses `PreCompileApp.ps1` instead.
+`PipelineInitialize.ps1` runs only when workspace compilation is disabled. When workspace compilation is enabled, AL-Go skips this hook so we need to use `PreCompileApp.ps1` instead.
 
 {{< tabpane persist=false >}}
 {{< tab header="PipelineInitialize (default)" lang="powershell" >}}
@@ -161,9 +161,9 @@ Both scripts use [`@alcops/core`](https://www.npmjs.com/package/@alcops/core) vi
 
 The GitHub Actions guard at the top of each script prevents failures in local development scenarios (e.g., `localDevEnv.ps1`), where `GITHUB_WORKSPACE` and other CI variables are not available.
 
-**PipelineInitialize.ps1** runs once at pipeline start, before any compilation begins. It receives a `[Hashtable] $parameters` argument (unused for ALCops). The script downloads the analyzers once and they are available for all subsequent compilation steps.
+**PipelineInitialize.ps1** runs once at pipeline start, before any compilation begins. The script downloads the analyzers once and they are available for all subsequent compilation steps.
 
-**PreCompileApp.ps1** runs once per app type (`app`, `testApp`, `bcptApp`) right before compilation of that group. Because it runs multiple times, the script includes a caching guard that skips the download if `.alcops/` already contains DLLs from a previous pass. It also resolves `CustomAnalyzers` paths to absolute paths via `$compilationParams`. This works around [microsoft/AL-Go#2235](https://github.com/microsoft/AL-Go/issues/2235): the ALTool only resolves the first entry against the project root, leaving remaining relative paths unresolvable from per-app project folders.
+**PreCompileApp.ps1** runs once per app type (`app`, `testApp`, `bcptApp`) right before compilation of that group. Because it runs multiple times, the script includes a caching guard that skips the download if `.alcops/` already contains DLLs from a previous pass.
 
 ### Pinning a version
 
