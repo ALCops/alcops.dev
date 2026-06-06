@@ -9,7 +9,7 @@ There are two main approaches to running ALCops in GitHub: using AL-Go for GitHu
 
 ## AL-Go for GitHub
 
-AL-Go for GitHub has built-in support for custom code analyzers through its settings file. ALCops integrates via the `PreCompileApp` hook, which AL-Go invokes once per app type (`app`, `testApp`, `bcptApp`) right before compilation.
+AL-Go for GitHub has built-in support for custom code analyzers through its settings file. ALCops integrates via an initialization hook script that downloads the analyzer DLLs before compilation.
 
 ### 1. Add the settings
 
@@ -33,9 +33,56 @@ AL-Go passes these paths to the compiler automatically. For a full list of AL-Go
 
 ### 2. Create the initialization script
 
-Create `.AL-Go/PreCompileApp.ps1` in your repository:
+Which hook script you need depends on whether [workspace compilation](https://github.com/microsoft/AL-Go/releases/tag/v9.0) is enabled in your `.AL-Go/settings.json`:
 
-```powershell
+```json
+"workspaceCompilation": {
+  "enabled": true
+}
+```
+
+| Workspace compilation | Hook script |
+|---|---|
+| Disabled (default) | `PipelineInitialize.ps1` |
+| Enabled | `PreCompileApp.ps1` |
+
+`PipelineInitialize.ps1` runs only when workspace compilation is disabled. When workspace compilation is enabled, AL-Go skips this hook so we need to use `PreCompileApp.ps1` instead.
+
+{{< tabpane persist=false >}}
+{{< tab header="PipelineInitialize (default)" lang="powershell" >}}
+# .AL-Go/PipelineInitialize.ps1
+Param([Hashtable] $parameters)
+
+# Skip when not running in GitHub Actions (e.g. localDevEnv.ps1).
+# AL-Go can invoke PipelineInitialize.ps1 in local development scenarios
+# where CI environment variables like GITHUB_WORKSPACE are not available.
+$githubActions = $env:GITHUB_ACTIONS
+if ([string]::IsNullOrWhiteSpace($githubActions) -or $githubActions.Trim().ToLowerInvariant() -eq "false") {
+    Write-Host "Not running in GitHub Actions. Skipping ALCops analyzer install."
+    return
+}
+
+$ErrorActionPreference = "Stop"
+
+$outputPath = Join-Path $env:GITHUB_WORKSPACE ".alcops"
+
+Write-Host "Installing ALCops analyzers..."
+Write-Host "  Output path: $outputPath"
+Write-Host "  Detect using: $env:artifact"
+
+npx --yes @alcops/core download `
+    --output $outputPath `
+    --detect-using $env:artifact `
+    --detect-from bc-artifact
+
+if ($LASTEXITCODE -ne 0) {
+    throw "ALCops download failed with exit code $LASTEXITCODE"
+}
+
+Write-Host "ALCops analyzers installed successfully."
+{{< /tab >}}
+{{< tab header="PreCompileApp (workspace compilation)" lang="powershell" >}}
+# .AL-Go/PreCompileApp.ps1
 Param(
     [ValidateSet('app','testApp')]
     [string] $appType,
@@ -105,33 +152,18 @@ if ($compilationParams -and $compilationParams.Value.CustomAnalyzers) {
     Write-Host "Resolved CustomAnalyzers paths to absolute:"
     $resolved | ForEach-Object { Write-Host "  $_" }
 }
-```
+{{< /tab >}}
+{{< /tabpane >}}
 
 ### How it works
 
-1. AL-Go calls `PreCompileApp.ps1` once per app type (`app`, `testApp`, `bcptApp`) before compiling that group.
-2. The script checks whether the `.alcops/` folder already contains DLLs; if so, it skips the download (avoids re-downloading on the `testApp` pass).
-3. On the first pass, the script uses [`@alcops/core`](https://www.npmjs.com/package/@alcops/core) via `npx` to:
-   - Auto-detect the target framework from the BC artifact URL (`$env:artifact`, set by AL-Go)
-   - Download the matching ALCops analyzer package from NuGet
-   - Extract the DLLs to `.alcops/` in the workspace
-4. AL-Go picks up the DLLs via the `customCodeCops` setting and passes them to the compiler.
+Both scripts use [`@alcops/core`](https://www.npmjs.com/package/@alcops/core) via `npx` to auto-detect the target framework from the BC artifact URL (`$env:artifact`, set by AL-Go), download the matching ALCops analyzer package from NuGet, and extract the DLLs to `.alcops/` in the workspace. AL-Go then picks up the DLLs via the `customCodeCops` setting and passes them to the compiler.
 
-The GitHub Actions guard at the top prevents the script from failing when AL-Go invokes `PreCompileApp.ps1` in local development scenarios (e.g., `localDevEnv.ps1`), where `GITHUB_WORKSPACE` and other CI variables are not available.
+The GitHub Actions guard at the top of each script prevents failures in local development scenarios (e.g., `localDevEnv.ps1`), where `GITHUB_WORKSPACE` and other CI variables are not available.
 
-### Migrating from PipelineInitialize.ps1
+**PipelineInitialize.ps1** runs once at pipeline start, before any compilation begins. The script downloads the analyzers once and they are available for all subsequent compilation steps.
 
-Older AL-Go documentation recommended `PipelineInitialize.ps1` for custom analyzer setup. That hook is part of the BcContainerHelper/Run-AlPipeline overrides and is **not called** when workspace compilation is enabled (the default in AL-Go v6+). If your pipeline silently stopped running your initialization script after enabling `workspaceCompilation`, this is why.
-
-`PreCompileApp.ps1` is the replacement. Key differences:
-
-| | PipelineInitialize.ps1 | PreCompileApp.ps1 |
-|---|---|---|
-| **When it runs** | Once at pipeline start | Once per app type (`app`, `testApp`, `bcptApp`) |
-| **Parameters** | None | `[string] $appType`, `[ref] $compilationParams` |
-| **Workspace compilation** | Not called | Called |
-
-To migrate: rename your script to `PreCompileApp.ps1`, update its `Param()` block to accept the new parameters, and add the download-caching guard (the script above handles this). See [microsoft/AL-Go#2235](https://github.com/microsoft/AL-Go/issues/2235) for background.
+**PreCompileApp.ps1** runs once per app type (`app`, `testApp`, `bcptApp`) right before compilation of that group. Because it runs multiple times, the script includes a caching guard that skips the download if `.alcops/` already contains DLLs from a previous pass.
 
 ### Pinning a version
 
