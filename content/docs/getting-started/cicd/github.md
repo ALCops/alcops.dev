@@ -46,7 +46,7 @@ Which hook script you need depends on whether [workspace compilation](https://gi
 | Disabled (default) | `PipelineInitialize.ps1` |
 | Enabled | `PreCompileApp.ps1` |
 
-`PipelineInitialize.ps1` is not called when workspace compilation is active. If your pipeline silently stopped running your initialization script after enabling `workspaceCompilation`, this is why.
+`PipelineInitialize.ps1` runs only when workspace compilation is disabled. When workspace compilation is enabled, AL-Go skips this hook entirely and uses `PreCompileApp.ps1` instead.
 
 {{< tabpane persist=false >}}
 {{< tab header="PipelineInitialize (default)" lang="powershell" >}}
