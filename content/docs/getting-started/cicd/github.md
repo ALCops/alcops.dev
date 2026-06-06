@@ -153,16 +153,9 @@ Both scripts use [`@alcops/core`](https://www.npmjs.com/package/@alcops/core) vi
 
 The GitHub Actions guard at the top of each script prevents failures in local development scenarios (e.g., `localDevEnv.ps1`), where `GITHUB_WORKSPACE` and other CI variables are not available.
 
-{{< tabpane persist=false >}}
-{{< tab header="PipelineInitialize" >}}
-`PipelineInitialize.ps1` runs once at pipeline start, before any compilation begins. It receives a `[Hashtable] $parameters` argument (unused for ALCops). The script downloads the analyzers once and they are available for all subsequent compilation steps.
-{{< /tab >}}
-{{< tab header="PreCompileApp" >}}
-`PreCompileApp.ps1` runs once per app type (`app`, `testApp`, `bcptApp`) right before compilation of that group. Because it runs multiple times, the script includes a caching guard that skips the download if `.alcops/` already contains DLLs from a previous pass.
+**PipelineInitialize.ps1** runs once at pipeline start, before any compilation begins. It receives a `[Hashtable] $parameters` argument (unused for ALCops). The script downloads the analyzers once and they are available for all subsequent compilation steps.
 
-The script also resolves `CustomAnalyzers` paths to absolute paths via `$compilationParams`. This works around [microsoft/AL-Go#2235](https://github.com/microsoft/AL-Go/issues/2235): the ALTool only resolves the first entry against the project root, leaving remaining relative paths unresolvable from per-app project folders.
-{{< /tab >}}
-{{< /tabpane >}}
+**PreCompileApp.ps1** runs once per app type (`app`, `testApp`, `bcptApp`) right before compilation of that group. Because it runs multiple times, the script includes a caching guard that skips the download if `.alcops/` already contains DLLs from a previous pass. It also resolves `CustomAnalyzers` paths to absolute paths via `$compilationParams`. This works around [microsoft/AL-Go#2235](https://github.com/microsoft/AL-Go/issues/2235): the ALTool only resolves the first entry against the project root, leaving remaining relative paths unresolvable from per-app project folders.
 
 ### Pinning a version
 
