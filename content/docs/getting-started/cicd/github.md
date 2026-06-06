@@ -33,12 +33,18 @@ AL-Go passes these paths to the compiler automatically. For a full list of AL-Go
 
 ### 2. Create the initialization script
 
-Which hook script you need depends on whether [workspace compilation](https://github.com/microsoft/AL-Go/releases/tag/v9.0) is enabled in your AL-Go settings. Check your `.AL-Go/settings.json`:
+Which hook script you need depends on whether [workspace compilation](https://github.com/microsoft/AL-Go/releases/tag/v9.0) is enabled in your `.AL-Go/settings.json`:
 
-| Setting | Hook script |
+```json
+"workspaceCompilation": {
+  "enabled": true
+}
+```
+
+| Workspace compilation | Hook script |
 |---|---|
-| No `workspaceCompilation` setting, or `enabled: false` (default) | `PipelineInitialize.ps1` |
-| `workspaceCompilation.enabled: true` | `PreCompileApp.ps1` |
+| Disabled (default) | `PipelineInitialize.ps1` |
+| Enabled | `PreCompileApp.ps1` |
 
 `PipelineInitialize.ps1` is not called when workspace compilation is active. If your pipeline silently stopped running your initialization script after enabling `workspaceCompilation`, this is why.
 
