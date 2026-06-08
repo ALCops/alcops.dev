@@ -1,13 +1,27 @@
-# Generated files by hugo
+# Generated files by Hugo
 public/
-node_modules/
 resources/_gen/
 
-# Executable may be added to repository
+# Hugo executables
 hugo.exe
 hugo.darwin
 hugo.linux
 
-## Locking files for when working with local servers
+# Hugo lock file
 .hugo_build.lock
+
+# Node
+node_modules/
 package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
