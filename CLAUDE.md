@@ -20,7 +20,7 @@ There are no tests or linters configured. Verify content changes by running `hug
 
 - **Hugo module setup**: Docsy is imported as a Go module (`go.mod`), not a git submodule. Hugo resolves it automatically.
 - **Lowercase links**: `layouts/_default/_markup/render-link.html` lowercases all internal link URLs. Cross-references to content pages must use lowercase paths, e.g. `[PC0034](pc0034/)`.
-- **Auto-rendered rule properties**: `layouts/partials/rule-properties.html` renders the properties table at the top of each rule page from front matter `[params]`. Never add a properties table manually in the body.
+- **Auto-rendered rule properties**: `layouts/partials/rule-properties.html` renders the properties strip at the top of each rule page from front matter `[params]`. Never add a properties table or list manually in the body.
 - **Sibling analyzer repo**: the C# analyzer source lives in [ALCops/Analyzers](https://github.com/ALCops/Analyzers), expected at `../Analyzers` next to this repo. It is the source of truth for all rule metadata (severity, category, code fix, obsolete handling) and its test fixtures (`src/ALCops.<Cop>.Test/Rules/<RuleName>/`) show exactly when each rule triggers.
 
 ## Content

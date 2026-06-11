@@ -4,14 +4,49 @@
 
 .rule-properties {
   margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--bs-border-color);
 
-  table {
-    width: auto;
-    min-width: 300px;
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bs-secondary-color);
+    margin-bottom: 0.5rem;
   }
 
-  th {
-    white-space: nowrap;
-    font-weight: 600;
+  &__items {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.75rem;
+    row-gap: 0.5rem;
+  }
+}
+
+.rule-property {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+
+  i {
+    font-size: 0.9em;
+  }
+
+  &--off,
+  &--hidden {
+    color: var(--bs-secondary-color);
+  }
+
+  &--error {
+    color: var(--bs-danger-text-emphasis);
+  }
+
+  &--warning {
+    color: var(--bs-warning-text-emphasis);
+  }
+
+  &--info {
+    color: var(--bs-info-text-emphasis);
   }
 }

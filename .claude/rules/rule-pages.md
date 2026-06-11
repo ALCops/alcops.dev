@@ -49,7 +49,7 @@ linkTitle = 'XX0000'
 
 - `title` includes the rule description and ID in parentheses, e.g. `'FlowFields should not be editable (PC0001)'`.
 - `linkTitle` is just the rule ID, e.g. `'PC0001'`.
-- The properties table at the top of each rule page is rendered automatically by `layouts/partials/rule-properties.html` from these params. **Never add a properties table manually in the body.**
+- The properties strip at the top of each rule page is rendered automatically by `layouts/partials/rule-properties.html` from these params. **Never add a properties table or list manually in the body.**
 - Most pages written before the `[params]` schema existed don't have it yet. When editing such a page, adding `[params]` (with values verified against the analyzer source) is welcome but optional; for new pages it is mandatory.
 - All metadata values come from the analyzer C# source, not from memory — see "Analyzer source as source of truth" below.
 
