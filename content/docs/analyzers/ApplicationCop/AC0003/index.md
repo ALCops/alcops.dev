@@ -1,8 +1,9 @@
 +++
-title = 'Set NotBlank property to false when No. Series TableRelation exists (AC0003)'
+title = 'Set NotBlank property to false when No. Series TableRelation exists'
 linkTitle = 'AC0003'
 
 [params]
+  id = 'AC0003'
   severity = 'Warning'
   category = 'Design'
   codeAction = true

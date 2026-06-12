@@ -4,6 +4,11 @@
 <div class="rule-properties">
   <div class="rule-properties__label">Properties</div>
   <div class="rule-properties__items">
+    {{- with $.Params.id }}
+    <span class="rule-property rule-property--id" title="Rule ID">
+      <i class="fa-solid fa-id-badge"></i>{{ . }}
+    </span>
+    {{- end }}
     <span class="rule-property rule-property--{{ lower . }}" title="Default severity">
       <i class="fa-solid {{ index $severityIcons . | default " fa-circle-info" }}"></i>{{ . }}
     </span>

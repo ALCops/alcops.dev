@@ -23,8 +23,8 @@ If this resolves to nothing, say so and stop.
 Check the page against every applicable convention in `.claude/rules/rule-pages.md`. In particular:
 
 **Front matter**
-- TOML (`+++`); `title` ends with ` (XX0000)`; `linkTitle` is the bare ID.
-- `[params]` present with valid values (severity, category from the allowed lists; `codeAction` is a plain bool). A legacy page without `[params]` gets a *suggestion*-level finding, not a must-fix — unless the page is new in this changeset, then it's a must-fix.
+- TOML (`+++`); `title` is the rule description only, without the rule ID; `linkTitle` is the bare ID.
+- `[params]` present with valid values: `id` matches `linkTitle`; severity, category from the allowed lists; `codeAction` is a plain bool. A legacy page without `[params]` gets a *suggestion*-level finding, not a must-fix — unless the page is new in this changeset, then it's a must-fix.
 - No manually written properties table in the body (the partial renders it).
 
 **Structure**

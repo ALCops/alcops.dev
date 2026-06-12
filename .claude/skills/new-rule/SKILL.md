@@ -34,7 +34,7 @@ All commands below run from the cop project directory `../Analyzers/src/ALCops.<
    - No match → `codeAction = false`.
    - Match → confirm its `FixableDiagnosticIds` includes this rule, then `codeAction = true`.
 4. **Obsolete handling** — in `Analyzers/<RuleName>.cs`, an early-return guard calling `IsObsolete()` (or checks of `IsObsoletePending`) → `ignoreObsolete = true`; otherwise `false`.
-5. **Strings** — in `ALCops.<AnalyzerName>Analyzers.resx`, read the `<RuleName>Title`, `<RuleName>MessageFormat`, and `<RuleName>Description` values. The Title becomes the front matter `title` (with ` (<RULEID>)` appended) and the `_index.md` Title column.
+5. **Strings** — in `ALCops.<AnalyzerName>Analyzers.resx`, read the `<RuleName>Title`, `<RuleName>MessageFormat`, and `<RuleName>Description` values. The Title becomes the front matter `title` (without the rule ID — the ID goes in `[params].id`) and the `_index.md` Title column.
 
 ## Step 4 — Understand the rule's behavior
 

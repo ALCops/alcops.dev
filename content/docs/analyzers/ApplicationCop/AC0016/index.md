@@ -1,8 +1,9 @@
 +++
-title = 'Do not use line breaks in ToolTip (AC0016)'
+title = 'Do not use line breaks in ToolTip'
 linkTitle = 'AC0016'
 
 [params]
+  id = 'AC0016'
   severity = 'Info'
   category = 'Design'
   codeAction = false

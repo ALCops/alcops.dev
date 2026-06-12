@@ -26,10 +26,11 @@ Every **new** rule page must include the `[params]` table:
 
 ```toml
 +++
-title = 'Rule description here (XX0000)'
+title = 'Rule description here'
 linkTitle = 'XX0000'
 
 [params]
+  id = 'XX0000'
   severity = 'Warning'
   category = 'Design'
   codeAction = true
@@ -39,13 +40,15 @@ linkTitle = 'XX0000'
 
 | Field | Required | Type | Values |
 |-------|----------|------|--------|
+| id | Yes | string | The rule ID, e.g. `AC0001` |
 | severity | Yes | string | `Error`, `Warning`, `Info`, `Hidden` |
 | category | Yes | string | `Design`, `Naming`, `Style`, `Usage`, `Performance`, `Security` |
 | codeAction | Yes | bool | `true` if a code action is available |
 | ignoreObsolete | Yes | bool | `true` if the rule skips elements marked as obsolete |
 
-- `title` includes the rule description and ID in parentheses, e.g. `'FlowFields should not be editable (PC0001)'`.
+- `title` is the rule description only, without the rule ID, e.g. `'FlowFields should not be editable'`.
 - `linkTitle` is just the rule ID, e.g. `'PC0001'`.
+- `id` in `[params]` matches the `linkTitle` value and is rendered first in the properties strip.
 - The properties strip at the top of each rule page is rendered automatically by `layouts/partials/rule-properties.html` from these params. **Never add a properties table or list manually in the body.**
 - When a rule is **disabled by default** (`isEnabledByDefault: false` in `DiagnosticDescriptors.cs`), set `severity = 'Hidden'` instead of the rule's default severity. This is sufficient — do not add a "disabled by default" note in the page body.
 - Most pages written before the `[params]` schema existed don't have it yet. When editing such a page, adding `[params]` (with values verified against the analyzer source) is welcome but optional; for new pages it is mandatory.

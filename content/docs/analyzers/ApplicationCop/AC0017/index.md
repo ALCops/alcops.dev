@@ -1,8 +1,9 @@
 +++
-title = 'ToolTip should not exceed 200 characters (AC0017)'
+title = 'ToolTip should not exceed 200 characters'
 linkTitle = 'AC0017'
 
 [params]
+  id = 'AC0017'
   severity = 'Info'
   category = 'Design'
   codeAction = false
