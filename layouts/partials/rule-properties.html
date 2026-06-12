@@ -1,10 +1,11 @@
 {{- with .Params.severity -}}
-{{- $severityIcons := dict "Error" "fa-circle-xmark" "Warning" "fa-triangle-exclamation" "Info" "fa-circle-info" "Hidden" "fa-eye-slash" -}}
+{{- $severityIcons := dict "Error" "fa-circle-xmark" "Warning" "fa-triangle-exclamation" "Info" "fa-circle-info"
+"Hidden" "fa-eye-slash" -}}
 <div class="rule-properties">
   <div class="rule-properties__label">Properties</div>
   <div class="rule-properties__items">
     <span class="rule-property rule-property--{{ lower . }}" title="Default severity">
-      <i class="fa-solid {{ index $severityIcons . | default "fa-circle-info" }}"></i>{{ . }}
+      <i class="fa-solid {{ index $severityIcons . | default " fa-circle-info" }}"></i>{{ . }}
     </span>
     {{- with $.Params.category }}
     <span class="rule-property" title="Category">
@@ -13,24 +14,19 @@
     {{- end }}
     {{- if isset $.Params "codeaction" }}
     {{- if $.Params.codeAction }}
-    {{- $fixLabels := dict "QuickFix" "Quick Fix" "Refactor" "Refactor" }}
     <span class="rule-property" title="A code fix is available">
-      <i class="fa-solid fa-wrench"></i>{{ index $fixLabels ($.Params.codeActionType | default "") | default "Code Fix" }}
+      <i class="fa-solid fa-wrench"></i>Code Fix
     </span>
-    {{- if isset $.Params "supportsfixall" }}
-    <span class="rule-property{{ if not $.Params.supportsFixAll }} rule-property--off{{ end }}" title="{{ if $.Params.supportsFixAll }}The fix can be applied to all occurrences at once{{ else }}The fix is applied one occurrence at a time{{ end }}">
-      <i class="fa-solid {{ if $.Params.supportsFixAll }}fa-check{{ else }}fa-xmark{{ end }}"></i>Fix All
-    </span>
-    {{- end }}
     {{- else }}
     <span class="rule-property rule-property--off" title="No code fix available">
       <i class="fa-solid fa-xmark"></i>Code Fix
     </span>
     {{- end }}
     {{- end }}
-    {{- if isset $.Params "ignoresobsoletepending" }}
-    <span class="rule-property{{ if not $.Params.ignoresObsoletePending }} rule-property--off{{ end }}" title="{{ if $.Params.ignoresObsoletePending }}Not reported on elements marked as obsolete pending{{ else }}Also reported on elements marked as obsolete pending{{ end }}">
-      <i class="fa-solid {{ if $.Params.ignoresObsoletePending }}fa-check{{ else }}fa-xmark{{ end }}"></i>Ignores Obsolete Pending
+    {{- if isset $.Params "ignoreobsolete" }}
+    <span class="rule-property{{ if not $.Params.ignoreObsolete }} rule-property--off{{ end }}"
+      title="{{ if $.Params.ignoreObsolete }}Not reported on elements marked as obsolete{{ else }}Also reported on elements marked as obsolete{{ end }}">
+      <i class="fa-solid {{ if $.Params.ignoreObsolete }}fa-check{{ else }}fa-xmark{{ end }}"></i>Ignore Obsolete
     </span>
     {{- end }}
   </div>
