@@ -10,10 +10,8 @@ The DocumentationCop ensures that AL code is properly documented and that non-ob
 
 | ID | Title | Severity | Enabled | Code Fix |
 |---|---|---|---|---|
-| [DC0001](dc0001/) | Commit requires a comment explaining why | Warning | ✓ | |
-| [DC0002](dc0002/) | Writing to a FlowField requires a comment explaining why | Warning | ✓ | |
-| [DC0003](dc0003/) | Empty statement requires a comment explaining why | Warning | ✓ | |
-| [DC0004](dc0004/) | Public procedure requires XML documentation | Info | — | |
-| [DC0005](dc0005/) | XML documentation must match procedure signature | Warning | ✓ | |
-
-**Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's ruleset file.
+| [DC0001](dc0001/) | Commit requires a comment explaining why | Info | ✓ | |
+| [DC0002](dc0002/) | Writing to a FlowField requires a comment explaining why | Info | ✓ | |
+| [DC0003](dc0003/) | Empty statements should be removed or documented | Info | ✓ | |
+| [DC0004](dc0004/) | Public procedures must have XML documentation | Info | ✓ | |
+| [DC0005](dc0005/) | XML documentation must match the procedure signature | Info | ✓ | |
