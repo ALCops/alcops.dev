@@ -146,3 +146,14 @@ If you maintain a custom `.ruleset.json` that references LinterCop rule IDs, upd
 ```
 
 Any pragma directives in your AL code (`#pragma warning disable LCxxxx`) need to be updated to the new diagnostic IDs as well.
+
+## Migration Script
+
+For repositories with many `#pragma warning` directives, use the migration script to apply the ID changes.
+
+See [LinterCop Migration Script](lintercop-migration-script/) for the script and usage instructions.
+
+The script will:
+
+- Update `#pragma warning disable|enable|restore` directives in `.al` files.
+- Update rule IDs in `*.ruleset.json` files.
