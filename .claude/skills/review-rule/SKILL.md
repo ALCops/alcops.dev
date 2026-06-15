@@ -58,7 +58,7 @@ Check the page against every applicable convention in `.claude/rules/rule-pages.
 - For rules involving platform behavior, performance, SQL generation, permissions, events, or complex concepts: evaluate whether the page already has a `### See also` section with relevant external links.
 - If the page lacks a See also section (or has only internal cross-references) and the concept has depth, search for candidate links:
   1. Use `microsoft_docs_search` with the underlying concept and "Business Central" (e.g., "SetLoadFields partial records Business Central", not the rule ID). Include the AL property or method name when one exists.
-  2. Use `WebSearch` for community content: search for the concept plus "Business Central", optionally scoping to known sources (vjeko.com, erikhougaard.com, demiliani.com, yzhums.com, waldo.be, kauffmann.nl).
+  2. Use `WebSearch` for community content: search for the concept plus "Business Central".
   3. For each candidate URL, use `WebFetch` (or `microsoft_docs_fetch` for learn.microsoft.com URLs) to confirm the page exists and is relevant to the rule's concept — do not suggest links you haven't verified.
 - Report found links as a **suggestion**-level finding: "Consider adding a See also section with:" followed by a formatted bullet list using the site's link conventions (`[Title](URL) on Microsoft Learn`, `[Title](URL) by Author Name`). When a source pins down the precise behavior the page paraphrases weakly, suggest quoting it inline as a `>` blockquote with attribution instead of (not in addition to) listing it.
 - If the page already has a See also section, verify that existing URLs are not broken (fetch each to confirm). Report dead links as **must-fix**.

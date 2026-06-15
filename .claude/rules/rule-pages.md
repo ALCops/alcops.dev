@@ -226,7 +226,7 @@ The C# analyzer implementation lives in the sibling repository, expected at `../
 
 ## External references
 
-When a concept has depth (e.g., Cognitive Complexity, performance implications of `Count()`), link to authoritative community sources: Vjeko.com, Erik Hougaard, Microsoft Learn, SonarSource, Dynamics 365 Lab.
+When a concept has depth (e.g., Cognitive Complexity, performance implications of `Count()`), link to community source.
 
 Two placements, both valid on the same page:
 

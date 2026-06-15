@@ -67,7 +67,7 @@ Write `content/docs/analyzers/<AnalyzerName>/<RULEID>.md` following `.claude/rul
 Determine whether the rule's concept benefits from a `### See also` section. Rules about platform behavior, performance, SQL generation, permissions, events, or complex concepts almost always benefit. Simple naming or style convention rules usually do not — skip this step for those and proceed to Step 7.
 
 1. **Microsoft Learn first** — use `microsoft_docs_search` with the underlying concept and "Business Central" (e.g., "FlowFields editable property Business Central", "InherentPermissions Business Central"). Search for the AL property, method, or platform feature the rule addresses, not the rule ID.
-2. **Community content** — use `WebSearch` for the concept plus "Business Central", optionally scoping to known sources: vjeko.com, erikhougaard.com, demiliani.com, yzhums.com, waldo.be, kauffmann.nl.
+2. **Community content** — use `WebSearch` for the concept plus "Business Central".
 3. **Verify every candidate** — use `WebFetch` (or `microsoft_docs_fetch` for learn.microsoft.com URLs) to confirm each link exists and is directly relevant to the rule's concept. Discard pages that merely mention the term in passing.
 4. **Add to the draft** — a verified source can be used two ways:
    - When it pins down the precise behavior the page describes, quote the decisive sentence(s) inline as a `>` blockquote with an attribution link, at the point in the prose where the behavior is discussed.
