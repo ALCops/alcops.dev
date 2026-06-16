@@ -151,7 +151,7 @@ Any pragma directives in your AL code (`#pragma warning disable LCxxxx`) need to
 
 For repositories with many `#pragma warning` directives, use the migration script to apply the ID changes.
 
-See [LinterCop Migration Script](lintercop-migration-script/) for the script and usage instructions.
+See [LinterCop Migration Script](../lintercop-migration-script) for the script and usage instructions.
 
 The script will:
 
