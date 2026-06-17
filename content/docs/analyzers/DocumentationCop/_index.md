@@ -13,5 +13,10 @@ The DocumentationCop ensures that AL code is properly documented and that non-ob
 | [DC0001](dc0001/) | Commit requires a comment explaining why | Info | ✓ | |
 | [DC0002](dc0002/) | Writing to a FlowField requires a comment explaining why | Info | ✓ | |
 | [DC0003](dc0003/) | Empty statements should be removed or documented | Info | ✓ | |
-| [DC0004](dc0004/) | Public procedures must have XML documentation | Info | ✓ | |
+| [DC0004](dc0004/) | Public procedures must include XML documentation comments | Info | ✓ | |
 | [DC0005](dc0005/) | XML documentation must match the procedure signature | Info | ✓ | |
+| [DC0006](dc0006/) | Internal procedures must include XML documentation comments | Hidden | ✓ | |
+| [DC0007](dc0007/) | Public objects must include XML documentation comments | Info | ✓ | |
+| [DC0008](dc0008/) | Internal objects must include XML documentation comments | Hidden | ✓ | |
+| [DC0009](dc0009/) | Events must include XML documentation comments | Hidden | ✓ | |
+| [DC0010](dc0010/) | Internal events must include XML documentation comments | Hidden | ✓ | |
