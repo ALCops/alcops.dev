@@ -86,9 +86,9 @@ Do **not** add a `### When the diagnostic is NOT reported` section. Exclusions t
 
 ## Writing the Why section
 
-The opening paragraphs (before the first example) explain why the diagnostic exists. Write them from the reader's seat: they just wrote the flagged code on purpose, believing it works. Follow this three-beat structure:
+The opening paragraphs (before the first example) explain why the diagnostic exists. Follow this three-beat structure:
 
-1. **The intent**: what the developer was trying to do when they wrote this code, and what the platform actually does with it instead. Anchor the mechanism to that moment — "Many AL developers attempt to set an *is not empty* filter this way; the filter silently matches nothing" — not a textbook fact stated in a vacuum.
+1. **The mechanism**: what happens when the flagged code runs — state it directly. "When `SetLoadFields` is used on a record variable that subsequently performs write operations, the platform must JIT-load all remaining fields" — not "Developers often add SetLoadFields expecting…". Describe what the construct does and what goes wrong, never project intent onto the reader ("developers often…", "a common pattern is…", "you might expect…").
 2. **One concrete failure**: name the specific thing that breaks — the field that stays stale, the exact runtime error, the SQL that gets generated. One named failure the reader can picture beats any number of categories.
 3. **What to do instead**: one sentence pointing to the fix approach, before the code example shows it.
 
@@ -107,7 +107,7 @@ The audience is AL developers working with Business Central:
 
 - The reader knows AL, Business Central, records, codeunits, events, pages. Do not explain these.
 - The reader does NOT know platform internals (how FlowFields compute, how SQL is generated, how the event subscription queue works). Explain those.
-- Lead with mechanism, not imperatives — but anchor the mechanism in the developer's intent (see "Writing the Why section"). The reader should understand the system behavior before being told what to change.
+- Lead with mechanism, not imperatives. Describe what the construct does and what goes wrong — the reader should understand the system behavior before being told what to change. Do not project intent onto the reader ("Developers often…", "A common pattern is…").
 
 Voice:
 
@@ -132,10 +132,11 @@ What to avoid:
 
 Calibrate against these pairs. The good lines come from hand-written rule documentation that sets the bar for this site; match their structure, not just their grammar.
 
-**Intent-anchored opening vs textbook opening**
+**Direct mechanism opening vs vague textbook opening**
 
-- **Good**: "At some point, many AL developers attempt to set an *is not empty* filter as shown above. Unfortunately, this approach does not produce the expected result."
+- **Good**: "When `SetLoadFields` is used on a record variable that subsequently performs write operations, the platform must JIT-load all remaining fields before the write can execute."
 - **Bad**: "The `SetFilter` method accepts a filter expression as its second parameter. Incorrect escaping of single quotes can lead to unintended filter behavior."
+- **Also bad**: "Developers often add `SetLoadFields` to a read-modify-write pattern, expecting it to reduce SQL overhead." — projects intent onto the reader instead of describing the mechanism.
 
 **Concrete failure vs category list**
 
