@@ -23,7 +23,7 @@ The ApplicationCop enforces Business Central application conventions and design 
 | [AC0011](ac0011/) | Captions must be defined on user-facing objects and controls | Info | ✓ | |
 | [AC0012](ac0012/) | Integration events must not be declared in codeunits with Access set to Internal | Warning | ✓ | ✓ |
 | [AC0013](ac0013/) | DropDown and Brick fieldgroups must be defined | Info | — | |
-| [AC0014](ac0014/) | ToolTip must end with a dot | Info | ✓ | |
+| [AC0014](ac0014/) | ToolTip must end with a punctuation | Info | ✓ | |
 | [AC0015](ac0015/) | ToolTip should start with Specifies | Info | ✓ | |
 | [AC0016](ac0016/) | Do not use line breaks in ToolTip | Info | ✓ | |
 | [AC0017](ac0017/) | ToolTip should not exceed 200 characters | Info | ✓ | |
