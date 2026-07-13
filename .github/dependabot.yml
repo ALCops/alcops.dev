@@ -8,6 +8,10 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   # Update Go modules (docsy theme)
   - package-ecosystem: "gomod"
@@ -17,6 +21,10 @@ updates:
     labels:
       - "dependencies"
       - "go-modules"
+    groups:
+      go-modules:
+        patterns:
+          - "*"
 
   # Update npm dependencies (autoprefixer, postcss, etc.)
   - package-ecosystem: "npm"
@@ -26,3 +34,7 @@ updates:
     labels:
       - "dependencies"
       - "npm"
+    groups:
+      npm-dependencies:
+        patterns:
+          - "*"
