@@ -46,4 +46,4 @@ The PlatformCop detects code that is technically broken, dangerous, or silently 
 | [PC0035](pc0035/) | Use SetAutoCalcFields for loops | Warning | ✓ | ✓ |
 | [PC0036](pc0036/) | SetRecord() does not support temporary records | Warning | ✓ | |
 | [PC0037](pc0037/) | Use Validate() instead of direct field assignment | Warning | ✓ | ✓ |
-| [PC0038](pc0038/) | Not all code paths return a value | Warning | ✓ | |
+| [PC0038](pc0038/) | Not all code paths return a value | Info | ✓ | |
