@@ -39,3 +39,4 @@ The LinterCop is a code linter for AL, comparable to widely used static analysis
 | [LC0094](lc0094/) | AllowInCustomizations redundancy | Warning | ✓ | ✓ |
 | [LC0095](lc0095/) | Parameter is not referenced | Warning | ✓ | ✓ |
 | [LC0096](lc0096/) | Unnecessary record parameter in method call | Warning | ✓ | |
+| [LC0097](lc0097/) | Avoid mixing exit() and named return variable assignments | Info | — | |
