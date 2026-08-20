@@ -23,12 +23,12 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
-| `cognitiveComplexityThreshold` | integer | `15` | Maximum cognitive complexity before a diagnostic is reported |
-| `cyclomaticComplexityThreshold` | integer | `8` | Maximum cyclomatic complexity before a diagnostic is reported |
-| `maintainabilityIndexThreshold` | integer | `20` | Minimum maintainability index before a diagnostic is reported |
-| `languagesToTranslate` | string[] | `null` | Language codes to check for missing translations |
-| `namingPatterns` | object | `null` | Per-target naming pattern overrides |
-| `useSequentialGuidScope` | string | `null` | Set to `"AllGuidFields"` to require sequential GUIDs on all GUID fields |
+| `CognitiveComplexityThreshold` | integer | `15` | Maximum cognitive complexity before a diagnostic is reported |
+| `CyclomaticComplexityThreshold` | integer | `8` | Maximum cyclomatic complexity before a diagnostic is reported |
+| `MaintainabilityIndexThreshold` | integer | `20` | Minimum maintainability index before a diagnostic is reported |
+| `LanguagesToTranslate` | string[] | `null` | Language codes to check for missing translations |
+| `NamingPatterns` | object | `null` | Per-target naming pattern overrides |
+| `UseSequentialGuidScope` | string | `null` | Set to `"AllGuidFields"` to require sequential GUIDs on all GUID fields |
 
 Property names are case-insensitive. Comments and trailing commas are allowed.
 
@@ -38,7 +38,7 @@ Override the default naming validation patterns per target. Each target accepts 
 
 ```json
 {
-    "namingPatterns": {
+    "NamingPatterns": {
         "Variable": {
             "allowPattern": "^[A-Z]",
             "allowDescription": "should start with an uppercase letter"
