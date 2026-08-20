@@ -1,0 +1,67 @@
+name: Documentation Issue
+description: Report incorrect, outdated, or missing content on alcops.dev
+title: "[Docs]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to improve the documentation!
+
+        Before you create a new issue:
+        ✏️ **Know how to fix it?** Feel free to open a [pull request](https://github.com/ALCops/alcops.dev/blob/main/CONTRIBUTING.md) directly, no issue needed. We're more than happy to receive PRs!
+
+        > [!IMPORTANT]
+        > Is the analyzer **behavior** wrong, not just its documentation? Please file it in [ALCops/Analyzers](https://github.com/ALCops/Analyzers/issues/new/choose) instead.
+        > Problems installing the analyzers belong in the [VS Code extension](https://github.com/ALCops/vscode-extension/issues/new/choose) or [Azure DevOps extension](https://github.com/ALCops/azure-devops-extension/issues/new/choose) repositories.
+        > This repository is only for the alcops.dev website and its content.
+
+  - type: dropdown
+    id: issue-type
+    attributes:
+      label: Issue type
+      description: What kind of documentation issue is this?
+      options:
+        - Incorrect or outdated content
+        - Typo or grammar
+        - Broken link
+        - Missing documentation
+        - Website problem (rendering, layout, search)
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL
+      description: The page where the issue occurs. Leave empty if the documentation is missing entirely.
+      placeholder: https://alcops.dev/docs/...
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear description of what is wrong or missing.
+      placeholder: Describe the issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-fix
+    attributes:
+      label: Suggested fix
+      description: What should it say instead? Pull requests are also welcome, see [CONTRIBUTING.md](https://github.com/ALCops/alcops.dev/blob/main/CONTRIBUTING.md).
+      placeholder: Suggested fix
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Any additional information, such as screenshots. For website problems, please include your browser and version.
+      placeholder: Additional context
+    validations:
+      required: false

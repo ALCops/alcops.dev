@@ -1,0 +1,48 @@
+name: Documentation Request
+description: Suggest new documentation or improvements to existing content on alcops.dev
+title: "[Docs request]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest an improvement!
+
+        Before you create a new issue:
+        ✏️ **Want to write it yourself?** We'd love that! Open a [pull request](https://github.com/ALCops/alcops.dev/blob/main/CONTRIBUTING.md) directly, no issue needed.
+        💡 **Want to suggest a new analyzer rule?** Please open a [Discussion in the Analyzers repository](https://github.com/ALCops/Analyzers/discussions) instead. This repository is only for the alcops.dev website and its content.
+
+  - type: textarea
+    id: request
+    attributes:
+      label: What documentation is missing or could be improved?
+      description: Describe the topic, guide, or example you'd like to see.
+      placeholder: Describe the documentation you're looking for
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Why is this needed?
+      description: What were you trying to do when you noticed the gap?
+      placeholder: I was trying to... but couldn't find...
+    validations:
+      required: true
+
+  - type: input
+    id: related-page
+    attributes:
+      label: Related page
+      description: An existing page this would extend or improve, if any.
+      placeholder: https://alcops.dev/docs/...
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional context
+      description: Any additional information, screenshots, or examples.
+      placeholder: Additional context
+    validations:
+      required: false
