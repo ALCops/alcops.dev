@@ -40,4 +40,5 @@ The LinterCop is a code linter for AL, comparable to widely used static analysis
 | [LC0095](lc0095/) | Parameter is not referenced | Warning | ✓ | ✓ |
 | [LC0096](lc0096/) | Unnecessary record parameter in method call | Warning | ✓ | |
 | [LC0097](lc0097/) | Avoid mixing exit() and named return variable assignments | Info | — | |
+| [LC0098](lc0098/) | Event subscriber name does not match the configured template | Info | ✓ | ✓ |
 | [LC0099](lc0099/) | Event subscriber parameter is not referenced | Info | ✓ | ✓ |
