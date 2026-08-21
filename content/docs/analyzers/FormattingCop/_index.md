@@ -16,3 +16,4 @@ The FormattingCop enforces consistent formatting and visual structure of AL code
 | [FC0004](fc0004/) | Permission declarations should be ordered alphabetically | Info | ✓ | ✓ |
 | [FC0005](fc0005/) | Use parenthesis for method calls instead of assignment syntax | Warning | ✓ | ✓ |
 | [FC0006](fc0006/) | Permission values should be lowercase | Info | ✓ | ✓ |
+| [FC0007](fc0007/) | Statement blocks should be separated by a blank line | Info | | |
