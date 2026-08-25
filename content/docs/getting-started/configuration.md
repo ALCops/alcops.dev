@@ -13,9 +13,9 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 
 ```json
 {
-    "cognitiveComplexityThreshold": 15,
-    "cyclomaticComplexityThreshold": 8,
-    "maintainabilityIndexThreshold": 20
+    "CognitiveComplexityThreshold": 15,
+    "CyclomaticComplexityThreshold": 8,
+    "MaintainabilityIndexThreshold": 20
 }
 ```
 
@@ -32,20 +32,20 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 
 Property names are case-insensitive. Comments and trailing commas are allowed.
 
-### namingPatterns
+### NamingPatterns
 
-Override the default naming validation patterns per target. Each target accepts `allowPattern`, `disallowPattern`, `allowDescription`, and `disallowDescription`.
+Override the default naming validation patterns per target. Each target accepts `AllowPattern`, `DisallowPattern`, `AllowDescription`, and `DisallowDescription`.
 
 ```json
 {
     "NamingPatterns": {
         "Variable": {
-            "allowPattern": "^[A-Z]",
-            "allowDescription": "should start with an uppercase letter"
+            "AllowPattern": "^[A-Z]",
+            "AllowDescription": "should start with an uppercase letter"
         },
         "EnumValue": {
-            "disallowPattern": "^_",
-            "disallowDescription": "should not start with an underscore"
+            "DisallowPattern": "^_",
+            "DisallowDescription": "should not start with an underscore"
         }
     }
 }
@@ -55,13 +55,13 @@ Valid targets: `Procedure`, `LocalProcedure`, `GlobalProcedure`, `EventSubscribe
 
 `LocalProcedure`, `GlobalProcedure`, `EventSubscriber`, and `EventDeclaration` inherit from `Procedure` when no explicit override is configured.
 
-### languagesToTranslate
+### LanguagesToTranslate
 
 Specify which language codes must have translations present in the `.xlf` files.
 
 ```json
 {
-    "languagesToTranslate": ["da-DK", "de-DE"]
+    "LanguagesToTranslate": ["da-DK", "de-DE"]
 }
 ```
 
