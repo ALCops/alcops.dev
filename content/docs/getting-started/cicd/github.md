@@ -33,7 +33,7 @@ AL-Go passes these paths to the compiler automatically. For a full list of AL-Go
 
 ### 2. Create the initialization script
 
-Which hook script you need depends on whether [workspace compilation](https://github.com/microsoft/AL-Go/releases/tag/v9.0) is enabled in your `.AL-Go/settings.json`:
+Which hook script is relevant for ALCops initialization depends on whether [workspace compilation](https://github.com/microsoft/AL-Go/releases/tag/v9.0) is enabled in your `.AL-Go/settings.json`:
 
 ```json
 "workspaceCompilation": {
@@ -46,7 +46,9 @@ Which hook script you need depends on whether [workspace compilation](https://gi
 | Disabled (default) | `PipelineInitialize.ps1` |
 | Enabled | `PreCompileApp.ps1` |
 
-`PipelineInitialize.ps1` runs only when workspace compilation is disabled. When workspace compilation is enabled, AL-Go skips this hook so we need to use `PreCompileApp.ps1` instead.
+`PipelineInitialize.ps1` runs only when workspace compilation is disabled. When workspace compilation is enabled, AL-Go skips this hook, so `PreCompileApp.ps1` initializes ALCops instead.
+
+Both hook scripts can safely be included in reusable AL-Go templates. `PreCompileApp.ps1` may also be invoked by the classic compilation path, where `CustomAnalyzers` is not part of the compilation parameters. The script only applies the workspace-specific analyzer path workaround when that parameter is available.
 
 {{< tabpane persist=false >}}
 {{< tab header="PipelineInitialize (default)" lang="powershell" >}}
@@ -84,7 +86,7 @@ Write-Host "ALCops analyzers installed successfully."
 {{< tab header="PreCompileApp (workspace compilation)" lang="powershell" >}}
 # .AL-Go/PreCompileApp.ps1
 Param(
-    [ValidateSet('app','testApp')]
+    [ValidateSet('app', 'testApp', 'bcptApp')]
     [string] $appType,
     [ref] $compilationParams
 )
@@ -100,8 +102,8 @@ if ([string]::IsNullOrWhiteSpace($githubActions) -or $githubActions.Trim().ToLow
 
 $outputPath = Join-Path $env:GITHUB_WORKSPACE ".alcops"
 
-# PreCompileApp runs once per app group (apps + testApps). Skip the download
-# if analyzers are already on disk so we don't re-download for the testApp pass.
+# PreCompileApp runs once per app group (apps + testApps + bcptApps). Skip the
+# download if analyzers are already on disk so they are not downloaded again.
 $alreadyInstalled = (Test-Path $outputPath) -and
     @(Get-ChildItem -Path $outputPath -Filter '*.dll' -ErrorAction SilentlyContinue).Count -gt 0
 
@@ -126,15 +128,19 @@ else {
 }
 
 # https://github.com/microsoft/AL-Go/issues/2235
-# Workaround: altool's --customanalyzers forwards a comma-separated list to
-# alc.exe and only resolves the FIRST entry against the project root. The rest
-# stay as relative paths and alc.exe then resolves them against the per-app
-# project folder, where '.alcops' does not exist.
-# Rewrite CustomAnalyzers in $compilationParams to absolute paths so alc.exe
-# can find every DLL regardless of which project it's compiling.
-if ($compilationParams -and $compilationParams.Value.CustomAnalyzers) {
+# Workaround: some AL-Go versions pass relative custom analyzer paths during
+# workspace compilation. Resolve them against the workspace so alc.exe can
+# find every DLL regardless of which project it is compiling.
+# PreCompileApp can also run in the classic compilation path, where the
+# compilation parameters do not contain CustomAnalyzers.
+if (
+    $compilationParams -and
+    $compilationParams.Value -and
+    $compilationParams.Value.ContainsKey('CustomAnalyzers') -and
+    $compilationParams.Value['CustomAnalyzers']
+) {
     $resolved = @()
-    foreach ($cop in $compilationParams.Value.CustomAnalyzers) {
+    foreach ($cop in $compilationParams.Value['CustomAnalyzers']) {
         if ([System.IO.Path]::IsPathRooted($cop)) {
             $resolved += $cop
             continue
@@ -148,7 +154,7 @@ if ($compilationParams -and $compilationParams.Value.CustomAnalyzers) {
             $resolved += $abs
         }
     }
-    $compilationParams.Value.CustomAnalyzers = $resolved
+    $compilationParams.Value['CustomAnalyzers'] = $resolved
     Write-Host "Resolved CustomAnalyzers paths to absolute:"
     $resolved | ForEach-Object { Write-Host "  $_" }
 }
