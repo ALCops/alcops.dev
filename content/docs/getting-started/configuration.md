@@ -23,6 +23,7 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
+| `Extends` | object | `null` | Loads one external `alcops.json` as the base configuration |
 | `CognitiveComplexityThreshold` | integer | `15` | Maximum cognitive complexity before a diagnostic is reported |
 | `CyclomaticComplexityThreshold` | integer | `8` | Maximum cyclomatic complexity before a diagnostic is reported |
 | `MaintainabilityIndexThreshold` | integer | `20` | Minimum maintainability index before a diagnostic is reported |
@@ -31,6 +32,38 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 | `UseSequentialGuidScope` | string | `null` | Set to `"AllGuidFields"` to require sequential GUIDs on all GUID fields |
 
 Property names are case-insensitive. Comments and trailing commas are allowed.
+
+### Extending a central configuration
+
+Use `Extends.Source` to load a centrally maintained `alcops.json` as the base for the project configuration:
+
+```json
+{
+    "Extends": {
+        "Source": "https://example.com/company.alcops.json"
+    },
+    "SubscriberNamingPattern": "{Event Source}_{Event Name}[_{Element Name}]"
+}
+```
+
+`Source` supports one anonymously accessible HTTP(S) URL or one absolute local file path. For example, a Windows file path must be escaped in JSON:
+
+```json
+{
+    "Extends": {
+        "Source": "C:\\ALCops\\company.alcops.json"
+    }
+}
+```
+
+The referenced configuration provides the base values, and settings specified in the local `alcops.json` take precedence. The merge follows these rules:
+
+- Scalar values are replaced by the local value.
+- Arrays are replaced as a whole rather than combined.
+- Nested objects are merged property by property.
+- A referenced configuration cannot declare its own `Extends` section; inheritance chains are not supported.
+
+The external configuration is loaded once for each workspace path during the analyzer session. HTTP requests use a five-second timeout. If the source is unavailable, cannot be read, contains invalid JSON or incompatible setting values, ALCops ignores it and continues with the local configuration. This keeps local development and CI builds functional when a central configuration service is temporarily unavailable.
 
 ### NamingPatterns
 
