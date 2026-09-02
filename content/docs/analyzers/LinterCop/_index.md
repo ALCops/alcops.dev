@@ -42,3 +42,4 @@ The LinterCop is a code linter for AL, comparable to widely used static analysis
 | [LC0097](lc0097/) | Avoid mixing exit() and named return variable assignments | Info | — | |
 | [LC0098](lc0098/) | Event subscriber name does not match the configured template | Info | ✓ | ✓ |
 | [LC0099](lc0099/) | Event subscriber parameter is not referenced | Info | ✓ | ✓ |
+| [LC0100](lc0100/) | Global variable could be local | Hidden | | |
