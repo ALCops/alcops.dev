@@ -46,7 +46,7 @@ Use `Extends.Source` to load a centrally maintained `alcops.json` as the base fo
 }
 ```
 
-`Source` supports one anonymously accessible HTTP(S) URL or one absolute local file path. For example, a Windows file path must be escaped in JSON:
+`Source` supports one anonymously accessible HTTP(S) URL or one absolute local file path. HTTP(S) URLs containing embedded credentials, such as `https://user:pass@example.com/alcops.json`, are rejected before a network request is made. For example, a Windows file path must be escaped in JSON:
 
 ```json
 {
