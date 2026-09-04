@@ -13,3 +13,4 @@ no_list: true
 | [LinterCop](LinterCop) | Flags code quality issues, measures complexity, and promotes modern AL patterns. |
 | [PlatformCop](PlatformCop) | Detects code that is technically broken, dangerous, or silently ignored at the AL platform level. |
 | [TestAutomationCop](TestAutomationCop) | Validates the structure and correctness of AL test code. |
+| [Common](Common) | Cross-cutting diagnostics from the shared ALCops.Common library, loaded with every cop. |
