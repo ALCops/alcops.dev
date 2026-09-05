@@ -42,6 +42,7 @@ jobs:
         with:
           args: >-
             --no-progress
+            --config lychee.toml
             --base-url https://alcops.dev
             "public/**/*.html"
           token: ${{ secrets.GITHUB_TOKEN }}
