@@ -7,19 +7,28 @@ type: docs
 
 The ALCops VS Code extension is the recommended way to use ALCops during development. It automatically downloads and manages the analyzer DLLs for you.
 
-## Install the Extension
+## Install the VS Code Extension
 
-1. Open VS Code and go to the Extensions view (`Ctrl+Shift+X`).
-2. Search for **ALCops**.
-3. Click **Install**.
+Install the extension from the marketplace or use the command line identifier for automated setups.
 
-Alternatively, install from the command line:
-
-```shell
-code --install-extension Arthurvdv.alcops
-```
-
-Once installed, the extension activates automatically when you open an AL project. It downloads the analyzer DLLs to the AL Language extension's `bin/Analyzers` folder on first use.
+<div class="row g-3 mb-4">
+<div class="col-md-6">
+<div class="card h-100">
+<div class="card-body text-center">
+<h5 class="card-title">Marketplace</h5>
+<a class="btn btn-primary" href="https://marketplace.visualstudio.com/items?itemName=Arthurvdv.alcops">Install ALCops</a>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card h-100">
+<div class="card-body text-center">
+<h5 class="card-title">Command line</h5>
+<code>code --install-extension Arthurvdv.alcops</code>
+</div>
+</div>
+</div>
+</div>
 
 
 ## Selecting Code Cops
