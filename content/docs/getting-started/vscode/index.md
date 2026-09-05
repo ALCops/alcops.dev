@@ -30,7 +30,6 @@ Install the extension from the marketplace or use the command line identifier fo
 </div>
 </div>
 
-
 ## Selecting Code Cops
 
 The ALCops status bar item at the bottom of VS Code lets you quickly enable or disable individual analyzers. Click on **ALCops** in the status bar to open the selection menu, then toggle the cops you want active for your project.

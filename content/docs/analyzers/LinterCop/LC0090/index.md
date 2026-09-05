@@ -30,10 +30,11 @@ Additionally, a complexity score is made up of four different types of increment
 * Fundamental - assessed on statements not subject to a nesting increment
 * Hybrid - assessed on control flow structures that are not subject to a nesting increment, but which do increase the nesting count
 
-While the type of an increment makes no difference in the math - each increment adds one to the final score - making a distinction among the 
+While the type of an increment makes no difference in the math - each increment adds one to the final score - making a distinction among the
 categories of features being counted makes it easier to understand where nesting increments do and do not apply.
 
 ### An illustration of the problem
+
 ```AL
 procedure SumOfPrimes(Max: Integer): Integer
 var
@@ -78,6 +79,7 @@ end;               // Cyclomatic Complexity: 5
 While Cyclomatic Complexity gives equal weight to both the SumOfPrimes and GetWords methods, it is apparent that SumOfPrimes is much more complex and difficult to understand than GetWords. This illustrates that measuring understandability based solely on the paths of a program may not be sufficient.
 
 ### Intuitively 'right' complexity scores
+
 ```AL
 procedure SumOfPrimes(Max: Integer): Integer
 var
@@ -135,17 +137,18 @@ Additionally, the SciTools blog has an excellent article on the [Cognitive Compl
 ### The AL Language
 The following increments are supported for the AL Language extension for Microsoft Dynamics 365 Business Central.
 
-Category | Increment | Nesting Level | Nesting Penalty
-|--|:-:|:-:|:-:|
-if, ternary operator | X | X | X |
-else, else if [*](#compensating-usages) | X | X |
-case | X | X | X
-for, foreach | X | X | X
-while, repeat | X | X | X
-sequences of binary logical operators | X |   |
-each method in a recursion cycle | X |   |
+| Category | Increment | Nesting Level | Nesting Penalty |
+| -- | :-: | :-: | :-: |
+| if, ternary operator | X | X | X |
+| else, else if [*](#compensating-usages) | X | X | |
+| case | X | X | X |
+| for, foreach | X | X | X |
+| while, repeat | X | X | X |
+| sequences of binary logical operators | X |  |  |
+| each method in a recursion cycle | X |  |  |
 
 ### Example
+
 ```AL
 procedure VerifyLineQuantity()
 begin
@@ -200,9 +203,9 @@ To view the details of the Cognitive Complexity increments, you can enable the `
 }
 ```
 
-
 ### Logical operators
 Cognitive Complexity does not increment for each binary logical operator. Instead, it assesses a fundamental increment for each sequence of binary logical operators. For instance, consider the following pairs
+
 ```AL
 a and b
 a and b and c and d
@@ -211,15 +214,17 @@ a or b
 a or b or c or d
 ```
 
-Understanding the second line in each pair isn’t that much harder than understanding the first. On the other hand, there is a marked difference in the 
+Understanding the second line in each pair isn’t that much harder than understanding the first. On the other hand, there is a marked difference in the
 effort to understand the following two lines:
+
 ```AL
 a and b and c and d
 a or b and c or d
 ```
 
-Because boolean expressions become more difficult to understand with mixed operators, Cognitive complexity increments for each new sequence of like 
+Because boolean expressions become more difficult to understand with mixed operators, Cognitive complexity increments for each new sequence of like
 operators. For instance
+
 ```AL
 if                  // +1 for 'if'
  a and b and        // +1
@@ -233,6 +238,7 @@ if                  // +1 for 'if'
    not (b and c)    // +1
 then;
 ```
+
 While Cognitive Complexity offers a "discount" for like operators relative to Cyclomatic Complexity, it does increment for all sequences of binary boolean operators such as those in variable assignments, method invocations, and return statements.
 
 Note: The AL Language does **not** support [Lazy Evaluation](https://thatnavguy.com/d365-business-central-lazy-evaluation/). While using a sequence of binary logical operators can improve readability, it may come at a performance cost during runtime.
@@ -241,6 +247,7 @@ Note: The AL Language does **not** support [Lazy Evaluation](https://thatnavguy.
 Unlike Cyclomatic Complexity, Cognitive Complexity adds a fundamental increment for each method in a recursion cycle, whether direct or indirect. Because Recursion contribute very similar complexity like Loop.
 
 Nesting penalties do not apply to recursions, so only increments are applied regardless of the nesting level.
+
 ```AL
 procedure SelfRecursive()
 begin
@@ -265,8 +272,6 @@ begin
 end;
 ```
 
-
-
 ### Threshold
 What should the limit be?
 
@@ -276,12 +281,12 @@ _[Primary author of Cognitive Complexity on Stack Overflow](https://stackoverflo
 
 If you're uncertain about the right threshold, the matrix below could serve as a starting point.
 
-Cognitive Complexity | Code Quality | Readability | Maintainability
--- | -- | -- | --
-1-5 | Simple and easy to follow | High | Easy
-6-10 | Somewhat complex | Medium | Moderate
-11-20 | Complex | Low | Difficult
-21+ | Very complex | Poor | Very difficult
+| Cognitive Complexity | Code Quality | Readability | Maintainability |
+| -- | -- | -- | -- |
+| 1-5 | Simple and easy to follow | High | Easy |
+| 6-10 | Somewhat complex | Medium | Moderate |
+| 11-20 | Complex | Low | Difficult |
+| 21+ | Very complex | Poor | Very difficult |
 
 ### Configuration
 
@@ -302,7 +307,6 @@ Add or update the `CognitiveComplexityThreshold` property in the `alcops.json` f
 {{% alert title="Note" %}}
 After changing `alcops.json` in VS Code, reload the window (`Ctrl+Shift+P` → **Developer: Reload Window**) for the new settings to take effect.
 {{% /alert %}}
-
 
 ### Compensating Usages
 For AL, which lacks an `else if` structure, an `if` as the only statement in an `else` clause does not incur a nesting penalty. Additionally, there is no increment for the `else` itself. That is, an `else` followed immediately by an `if` is treated as an `else if`, even though syntactically it is not.

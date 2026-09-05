@@ -211,6 +211,7 @@ Each analyzer folder has an `_index.md` with a description and a rules table:
 - Title is the rule description without the ID suffix.
 - Enabled and Code Fix use `✓` or empty.
 - Rows are sorted by rule ID.
+- Use bordered pipe tables — a leading and trailing `|` on every row (header, delimiter, and body) — with the same number of columns in every row. This applies to all tables in content, not just this one; markdownlint (MD055/MD056) enforces it.
 
 **When adding a new rule page, updating the analyzer's `_index.md` table is mandatory** — a page without an index row is invisible to readers scanning the rule list.
 
