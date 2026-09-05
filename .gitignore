@@ -28,3 +28,6 @@ Desktop.ini
 
 # Claude Code personal settings
 .claude/settings.local.json
+
+# htmltest local output
+tmp/.htmltest/

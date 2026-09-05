@@ -1,0 +1,23 @@
+# PR gate — builds the site and runs all validation (strict Hugo build,
+# htmltest, markdownlint) via the reusable build workflow. No deploy.
+# Make the "build / build" check required in branch protection for main.
+name: CI
+
+on:
+  pull_request:
+    branches: ['main']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/build.yaml
+    # upload-pages-artifact / upload-site-artifact default to false:
+    # build-only, no configure-pages, no artifacts, no deploy.
