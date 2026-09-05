@@ -4,7 +4,7 @@ type: docs
 no_list: true
 ---
 
-The PlatformCop detects code that is technically broken, dangerous, or silently ignored at the AL platform level. It flags constructs where the runtime behaves differently from what the developer likely intended. Unlike the ApplicationCop, which focuses on Business Central application conventions, PlatformCop targets AL platform and runtime correctness regardless of the application context.
+PlatformCop inspects AL code for constructs the platform rejects, ignores, or executes differently from what the code says. Ignoring a PlatformCop rule gives a runtime error or code that silently does nothing: an `AutoIncrement` field in a temporary table, a filter operator inside `SetRange`. The rules apply to any AL code, independent of the Business Central application it runs in. See [how the analyzers differ](../) for the split between PlatformCop, ApplicationCop and LinterCop.
 
 ## Rules
 

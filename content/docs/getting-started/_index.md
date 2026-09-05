@@ -21,7 +21,7 @@ Pick the approach that matches your development workflow:
 Run ALCops as part of your build to catch issues before they reach production:
 
 - [AL-Go for GitHub](cicd/github/) — built-in support for custom code analyzers
-- [Azure DevOps](cicd/azure-devops/) — ALOps, custom pipelines, and the upcoming ALCops extension
+- [Azure DevOps](cicd/azure-devops/) — the ALCops pipeline task from the marketplace extension, ALOps, and custom pipelines
 
 ### AI Tooling
 
