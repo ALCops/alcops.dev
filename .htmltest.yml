@@ -1,0 +1,42 @@
+# htmltest — link/asset checker for the rendered Hugo output (public/).
+# Runs on every PR and every deploy via .github/workflows/build.yaml.
+# Docs: https://github.com/wjdp/htmltest
+
+DirectoryPath: public
+
+# External URLs are checked by the scheduled lychee workflow, not here —
+# keep the PR gate deterministic (no third-party flakiness).
+CheckExternal: false
+
+# Image existence is still checked; the missing-alt requirement is deferred
+# (the imgproc shortcode usage doesn't set alt yet). Re-enable by removing
+# this line once alt text is added. Affects LinterCop/LC0028, LC0090 and
+# getting-started/vscode.
+IgnoreAltMissing: true
+
+IgnoreInternalEmptyHash: true
+IgnoreEmptyHref: true
+
+# TEMPORARY ALLOWLIST — pre-existing broken internal links already live on the
+# site, to be fixed in a fast-follow PR. Patterns are anchored (^...$) to the
+# exact broken href so they (a) do NOT mask new breakages and (b) self-expire:
+# once a link is fixed its href changes and the pattern matches nothing.
+# Do not add to this list to silence NEW failures — fix the link instead.
+IgnoreURLs:
+  # Bare cross-refs missing "../" (resolve under the current page dir -> 404).
+  # Convention bug: CLAUDE.md documents "[PC0034](pc0034/)"; correct is "../pc0034/".
+  - '^ac0012/$'
+  - '^lc0081/$'
+  - '^lc0082/$'
+  - '^pc0006/$'
+  - '^pc0018/$'
+  - '^pc0020/$'
+  - '^pc0021/$'
+  - '^getting-started/vscode/$'
+  - '^getting-started/cicd/github/$'
+  - '^azure-devops/$'
+  # {{< relref >}} inside a markdown link destination is mangled by the
+  # render-link hook into a shortcode placeholder (LC0007/08/10 -> Configuration).
+  - '^hahahugoshortcode[0-9a-z]+$'
+  # href to a directory without a trailing slash.
+  - '^\.\./lintercop-migration-script$'

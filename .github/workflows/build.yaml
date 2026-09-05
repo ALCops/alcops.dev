@@ -1,0 +1,91 @@
+# Reusable build — the single source of truth for building and validating the
+# site. Called by:
+#   * ci.yaml         — on pull requests (build-only gate)
+#   * hugo.yaml       — on push to main (build + deploy to Pages)
+#   * link-check.yaml — on a schedule (build + external-link check)
+# Keep all build/toolchain/validation logic here so PR and release never drift.
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      upload-pages-artifact:
+        description: 'Upload ./public as a GitHub Pages artifact (for the deploy job).'
+        type: boolean
+        default: false
+      upload-site-artifact:
+        description: 'Upload ./public as a plain artifact named "site" (for the link checker).'
+        type: boolean
+        default: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.165.0
+      HTMLTEST_VERSION: v0.17.0
+    steps:
+      - name: Install Hugo CLI
+        run: |
+          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Install Dart Sass
+        run: sudo snap install dart-sass
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - name: Setup Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Setup Pages
+        id: pages
+        if: inputs.upload-pages-artifact
+        uses: actions/configure-pages@v6
+      - name: Cache Hugo resources
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/hugo_cache
+          key: hugo-${{ runner.os }}-${{ hashFiles('go.sum', 'package-lock.json') }}
+          restore-keys: |
+            hugo-${{ runner.os }}-
+      - name: Install Node.js dependencies
+        run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+      - name: Build with Hugo
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+          HUGO_ENVIRONMENT: production
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --panicOnWarning \
+            --printPathWarnings \
+            --baseURL "${{ steps.pages.outputs.base_url || 'https://alcops.dev' }}/"
+      - name: Check links and images (htmltest)
+        run: |
+          go install github.com/wjdp/htmltest@${HTMLTEST_VERSION}
+          "$(go env GOPATH)/bin/htmltest"
+      - name: Lint Markdown
+        run: npx --yes markdownlint-cli2@0.23.2 "content/**/*.md"
+      - name: Upload Pages artifact
+        if: inputs.upload-pages-artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./public
+      - name: Upload site artifact
+        if: inputs.upload-site-artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: site
+          path: ./public
