@@ -1,11 +1,11 @@
 baseURL = 'https://alcops.dev/'
-languageCode = 'en-us'
+locale = 'en-us'
 title = 'ALCops'
 
 [module]
 proxy = "direct"
 [[module.imports]]
-path = "github.com/google/docsy"
+path = "github.com/google/docsy/theme"
 
 [params]
 description = "A community driven collection of code analyzers for the AL programming language of Microsoft Dynamics 365 Business Central."
