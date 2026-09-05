@@ -46,7 +46,9 @@ Use `Extends.Source` to load a centrally maintained `alcops.json` as the base fo
 }
 ```
 
-`Source` supports one anonymously accessible HTTP(S) URL or one absolute local file path. HTTP(S) URLs containing embedded credentials, such as `https://user:pass@example.com/alcops.json`, are rejected before a network request is made. For example, a Windows file path must be escaped in JSON:
+`Source` supports one anonymously accessible HTTP(S) URL or one absolute local file path. HTTP(S) URLs containing embedded credentials, such as `https://user:pass@example.com/alcops.json`, are rejected before a network request is made. The username and password are omitted from the resulting diagnostic. Committing an `alcops.json` that references an external source means trusting that source to supply analyzer settings.
+
+For example, a Windows file path must be escaped in JSON:
 
 ```json
 {
@@ -63,7 +65,15 @@ The referenced configuration provides the base values, and settings specified in
 - Nested objects are merged property by property.
 - A referenced configuration cannot declare its own `Extends` section; inheritance chains are not supported.
 
-The external configuration is loaded once for each workspace path during the analyzer session. HTTP requests use a five-second timeout. If the source is unavailable, cannot be read, contains invalid JSON or incompatible setting values, ALCops ignores it and continues with the local configuration. This keeps local development and CI builds functional when a central configuration service is temporarily unavailable.
+The external configuration is loaded once for each workspace path during the analyzer session. HTTP requests use a five-second timeout and accept at most **1 MiB (1,048,576 bytes)** of response content. The size limit also applies to chunked responses and responses without a `Content-Length` header.
+
+If a declared `Extends` source cannot be resolved, **the entire configuration falls back to the built-in defaults**. Neither the inherited settings nor the local overrides are applied. This includes unreachable sources, HTTP errors, timeouts, oversized HTTP responses, unreadable files, malformed JSON, incompatible setting values, invalid `Extends.Source` declarations, and inheritance chains. A [CM0001 warning](/docs/analyzers/common/cm0001/) identifies the failing source and reason, so the fallback is visible in VS Code and command-line builds.
+
+For example, with a local `CyclomaticComplexityThreshold` of `41` and an unavailable base configuration, the effective threshold is the built-in default `8`. Keeping `41` would apply only part of the intended configuration.
+
+Unknown top-level setting names are handled separately: recognized settings still apply, with one `CM0001` warning per unknown name in either configuration. An invalid value in the base configuration is still an error even when a local override would replace it.
+
+After correcting a configuration or restoring its source, restart the analyzer process to reload it. In VS Code, use **Developer: Reload Window**; command-line builds reload settings when a new compiler process starts.
 
 ### NamingPatterns
 
