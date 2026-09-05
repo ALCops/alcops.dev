@@ -2,6 +2,7 @@
 # rate-limited third-party sites never block a merge. Internal links and images
 # are validated on every PR by htmltest (see .htmltest.yml); this job checks
 # only external URLs — .lycheeignore skips our own domain.
+# (lychee resolves relative links against --base-url https://alcops.dev.)
 name: External link check
 
 on:
@@ -41,8 +42,9 @@ jobs:
         with:
           args: >-
             --no-progress
-            --base https://alcops.dev
+            --base-url https://alcops.dev
             "public/**/*.html"
+          token: ${{ secrets.GITHUB_TOKEN }}
           fail: false
       - name: Open issue on broken links
         if: steps.lychee.outputs.exit_code != 0
