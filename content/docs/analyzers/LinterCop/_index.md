@@ -4,7 +4,7 @@ type: docs
 no_list: true
 ---
 
-The LinterCop is a code linter for AL, comparable to widely used static analysis linters in other programming languages. It flags code quality issues, measures complexity, and promotes modern AL patterns. The code it flags is technically valid, but can be written in a cleaner, more maintainable or more idiomatic way.
+LinterCop inspects procedure bodies for code that is valid but harder to read, change or keep fast than it needs to be: cognitive complexity, redundant statements, patterns with a modern AL replacement. Nothing breaks when a LinterCop rule is ignored; the cost lands on whoever maintains the code next. It is the ALCops counterpart of the linters used in other languages, and the direct continuation of [BusinessCentral.LinterCop](../../lintercop-migration/).
 
 ## Rules
 

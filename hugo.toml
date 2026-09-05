@@ -10,6 +10,7 @@ path = "github.com/google/docsy"
 [params]
 description = "A community driven collection of code analyzers for the AL programming language of Microsoft Dynamics 365 Business Central."
 github_repo = "https://github.com/ALCops/alcops.dev"
+github_project_repo = "https://github.com/ALCops/Analyzers"
 offlineSearch = true
 [params.ui]
 showLightDarkModeMenu = true
@@ -33,23 +34,23 @@ pre = "<i class='fa-solid fa-book'></i>"
 post = ""
 
 [[menus.main]]
-name = "Discussions"
+name = "Rules"
 weight = 97
-url = "https://github.com/ALCops/Analyzers/discussions"
-pre = "<i class='fa-solid fa-comments'></i>"
+url = "docs/analyzers/"
+pre = "<i class='fa-solid fa-list-check'></i>"
 post = ""
 
 [[menus.main]]
-name = "VS Code"
+name = "Get help"
 weight = 98
-url = "https://marketplace.visualstudio.com/items?itemName=Arthurvdv.alcops"
-pre = "<i class='fa-solid fa-puzzle-piece'></i>"
+url = "docs/get-help/"
+pre = "<i class='fa-solid fa-life-ring'></i>"
 post = ""
 
 [[menus.main]]
 name = "GitHub"
 weight = 99
-url = "https://github.com/alcops"
+url = "https://github.com/ALCops"
 pre = "<i class='fab fa-github'></i>"
 post = ""
 

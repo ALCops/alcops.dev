@@ -4,7 +4,7 @@ type: docs
 no_list: true
 ---
 
-The DocumentationCop ensures that AL code is properly documented and that non-obvious patterns are explained. It requires comments on constructs that would otherwise confuse future developers and validates the presence and correctness of XML documentation. These rules do not change runtime behavior but improve code clarity and maintainability.
+DocumentationCop inspects comments and XML documentation. It flags public procedures without XML documentation and constructs whose intent is not stated in code, such as a `Commit` without a comment explaining why. Ignoring these rules changes nothing at runtime; it leaves the next developer to reverse-engineer what the code is for.
 
 ## Rules
 
