@@ -3,7 +3,7 @@
 # Internal links and images are validated by htmltest on every PR
 # (see .htmltest.yml), so lychee only checks third-party external links —
 # skip our own domain here (link-check.yaml resolves internal links to it
-# via --base https://alcops.dev).
+# via --base-url https://alcops.dev).
 ^https://alcops\.dev
 
 # Add known-flaky or bot-blocking external hosts below as they surface.
