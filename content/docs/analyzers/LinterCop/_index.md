@@ -42,3 +42,4 @@ LinterCop inspects procedure bodies for code that is valid but harder to read, c
 | [LC0097](lc0097/) | Avoid mixing exit() and named return variable assignments | Info | — | |
 | [LC0098](lc0098/) | Event subscriber name does not match the configured template | Info | ✓ | ✓ |
 | [LC0099](lc0099/) | Event subscriber parameter is not referenced | Info | ✓ | ✓ |
+| [LC0100](lc0100/) | Global variable could be local | Hidden | | |
