@@ -1,34 +1,33 @@
 // markdownlint config for content/ prose. Run via markdownlint-cli2 in
 // .github/workflows/build.yaml. Rules not listed here stay at their defaults,
-// so new violations of them still fail the PR gate.
+// so new violations of them fail the PR gate.
 //
-// Every rule disabled below is currently violated by existing content. Two
-// groups: (1) deliberate site conventions we will not enforce, and (2)
-// pre-existing debt we may tighten later (fix content, then re-enable).
+// The disabled rules fall into three kinds, each explained below. Counts are
+// the violations present when the rule was last evaluated (markdownlint-cli2
+// 0.23.2 over content/**/*.md).
 {
   "default": true,
 
-  // (1) Deliberate site conventions — leave off.
-  "MD013": false, // line-length: prose/tables run long by design
-  "MD033": false, // no-inline-html: Hugo shortcodes & raw HTML (unsafe = true)
-  "MD025": false, // single-h1: front-matter title + body H1 coexist
-  "MD001": false, // heading-increment: pages open at ### under the H1 title
-  "MD060": false, // table-column-style
-  "MD055": false, // table-pipe-style
-  "MD056": false, // table-column-count
+  // (A) Structural false positives. Code samples on this site are authored with
+  // Hugo shortcodes ({{< highlight >}}, {{< tab >}}, {{< tabpane >}}), not
+  // Markdown ``` fences. markdownlint cannot see inside shortcodes, so it reads
+  // that code as prose. There is no config to make it read shortcode bodies, and
+  // DocumentationCop pages inherently show XML-doc tags, so these stay off.
+  "MD033": false, // no-inline-html: <summary>/<param>/<returns>, XLIFF tags, card grids
+  "MD018": false, // no-missing-space-atx: `#pragma warning disable ...` seen as a heading
+  "MD025": false, // single-h1: PowerShell `# comment` lines seen as extra H1s
+  "MD026": false, // no-trailing-punctuation: trailing `.` on `# comment` lines
+  "MD034": false, // no-bare-urls: URL inside a `# comment` line
+  "MD038": false, // no-space-in-code-span: PowerShell backtick line-continuation read as a code span
 
-  // (2) Pre-existing debt — candidates to fix and re-enable later.
-  "MD022": false, // blanks-around-headings
-  "MD031": false, // blanks-around-fences
-  "MD032": false, // blanks-around-lists
-  "MD012": false, // no-multiple-blanks
-  "MD009": false, // no-trailing-spaces
-  "MD018": false, // no-missing-space-atx
-  "MD026": false, // no-trailing-punctuation in headings
-  "MD034": false, // no-bare-urls
-  "MD036": false, // no-emphasis-as-heading
-  "MD038": false, // no-space-in-code-span
-  "MD040": false, // fenced-code-language
-  "MD046": false, // code-block-style (indented vs fenced)
-  "MD047": false  // single-trailing-newline
+  // (B) Deliberate site conventions.
+  "MD013": false, // line-length: prose is authored as long, unwrapped lines
+  "MD001": false, // heading-increment: rule pages open at ### under the front-matter title (H1->H3)
+
+  // (C) Deferred debt — real, fixable, but manual; tackle in a later pass.
+  "MD022": false, // blanks-around-headings (36) — entangled with the shortcode false-headings above
+  "MD046": false, // code-block-style (19) — mixed indented/fenced blocks
+  "MD060": false, // table-column-style (346) — mostly cosmetic delimiter spacing
+  "MD040": false, // fenced-code-language (6) — add a language to each bare ``` fence
+  "MD036": false  // no-emphasis-as-heading (1) — LC0009 `**Total: 8**`
 }
