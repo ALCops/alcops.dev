@@ -31,7 +31,7 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 | `NamingPatterns` | object | `null` | Per-target naming pattern overrides |
 | `UseSequentialGuidScope` | string | `null` | Set to `"AllGuidFields"` to require sequential GUIDs on all GUID fields |
 
-Property names are case-insensitive. Comments and trailing commas are allowed.
+Property names are case-insensitive. Comments and trailing commas are allowed. An empty, whitespace-only, comment-only or JSON-null local file uses defaults without CM0001. A declared inherited configuration must still contain a JSON object.
 
 ### Extending a central configuration
 
@@ -65,7 +65,7 @@ The referenced configuration provides the base values, and settings specified in
 - Nested objects are merged property by property.
 - A referenced configuration cannot declare its own `Extends` section; inheritance chains are not supported.
 
-The external configuration is loaded once for each workspace path during the analyzer session. HTTP requests use a five-second timeout and accept at most **1 MiB (1,048,576 bytes)** of response content. The size limit also applies to chunked responses and responses without a `Content-Length` header.
+Successfully loaded configurations are cached per workspace path during the analyzer session. Each compilation uses a consistent configuration snapshot. HTTP requests use a five-second timeout and accept at most **1 MiB (1,048,576 bytes)** of response content. The size limit also applies to chunked responses and responses without a `Content-Length` header.
 
 If a declared `Extends` source cannot be resolved, **the entire configuration falls back to the built-in defaults**. Neither the inherited settings nor the local overrides are applied. This includes unreachable sources, HTTP errors, timeouts, oversized HTTP responses, unreadable files, malformed JSON, incompatible setting values, invalid `Extends.Source` declarations, and inheritance chains. A [CM0001 warning](/docs/analyzers/common/cm0001/) identifies the failing source and reason, so the fallback is visible in VS Code and command-line builds.
 
@@ -73,7 +73,11 @@ For example, with a local `CyclomaticComplexityThreshold` of `41` and an unavail
 
 Unknown top-level setting names are handled separately: recognized settings still apply, with one `CM0001` warning per unknown name in either configuration. An invalid value in the base configuration is still an error even when a local override would replace it.
 
-After correcting a configuration or restoring its source, restart the analyzer process to reload it. In VS Code, use **Developer: Reload Window**; command-line builds reload settings when a new compiler process starts.
+Failed HTTP requests are retried when a later compilation requests settings. This covers network errors, timeouts, HTTP error statuses and oversized response bodies. The failing compilation keeps its defaults and CM0001 diagnostic; a later successful compilation uses the recovered configuration without restarting the language server. There is no timer or background refresh.
+
+The first analysis using an uncached HTTP source can wait for up to the five-second request timeout. Cancelling that analysis also cancels the request. Cancellation does not produce CM0001 or cache a failed result.
+
+Successfully loaded settings and deterministic configuration errors, such as malformed JSON or an invalid source declaration, remain cached for the analyzer session. After changing these, restart the analyzer process; in VS Code, use **Developer: Reload Window**. Command-line builds reload settings when a new compiler process starts.
 
 ### NamingPatterns
 
