@@ -7,3 +7,8 @@
 ^https://alcops\.dev
 
 # Add known-flaky or bot-blocking external hosts below as they surface.
+
+# Bot-blocking hosts that 403 lychee's default user-agent from CI (links are valid).
+^https://stackoverflow\.com
+^https://(www\.)?npmjs\.com
+^https://itnext\.io

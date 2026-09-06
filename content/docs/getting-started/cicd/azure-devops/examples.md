@@ -220,7 +220,7 @@ ALOps v3 in serial mode supports absolute paths, so use the `$(ALCopsDownload.ou
 
 ## See also
 
-- [ALOps documentation](https://marketplace.visualstudio.com/items?itemName=HodorNV.intelli-ship-al-tools)
+- [ALOps documentation](https://marketplace.visualstudio.com/items?itemName=Hodor.hodor-alops)
 - [BcContainerHelper documentation](https://github.com/microsoft/navcontainerhelper)
 - [BC Development Tools NuGet package](https://www.nuget.org/packages/Microsoft.Dynamics.BusinessCentral.Development.Tools)
 - [Demo repository with all pipelines](https://dev.azure.com/Arthurvdv/ALCops)
