@@ -33,9 +33,36 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 
 Property names are case-insensitive. Comments and trailing commas are allowed. An empty, whitespace-only, comment-only or JSON-null local file uses defaults without CM0001. A declared inherited configuration must still contain a JSON object.
 
+### Where alcops.json is loaded from
+
+The analyzer looks for `alcops.json` starting in the **app folder** — the directory that contains `app.json` — and then walks **up the parent directories** until it finds one. The first `alcops.json` it encounters is used; files at different levels are **not merged**. A file closer to the app fully shadows any file higher up.
+
+This makes it easy to share one configuration across every app in a repository or multi-root workspace: place a single `alcops.json` at the workspace root, and let individual apps override it by adding their own.
+
+```text
+workspace/
+├── alcops.json        ← shared by every app below
+├── App1/
+│   ├── app.json
+│   └── alcops.json    ← overrides the shared file for App1 (nearest wins)
+└── App2/
+    └── app.json       ← uses workspace/alcops.json
+```
+
+The search stops at the filesystem root, or earlier at any directory it cannot access.
+
+Because the nearest file wins outright, this mechanism *replaces* configuration rather than combining it. To share a common base **and** keep local overrides on top of it — for example a company-wide standard applied across repositories and machines — use [`Extends`](#extending-a-central-configuration) instead.
+
+| Need | Mechanism | Behavior |
+|------|-----------|----------|
+| Share one config across apps in the **same repository or workspace** | Parent-directory traversal (a root `alcops.json`) | Nearest file wins; no merging |
+| Share a **company-wide** base across repositories or machines, with local overrides | [`Extends.Source`](#extending-a-central-configuration) (recommended) | Base and local are merged; local wins |
+
 ### Extending a central configuration
 
-Use `Extends.Source` to load a centrally maintained `alcops.json` as the base for the project configuration:
+`Extends` is the recommended way to apply one configuration across every app in your company. Unlike a shared file found by [directory traversal](#where-alcopsjson-is-loaded-from) — which replaces the local file entirely — `Extends` layers a centrally maintained base *underneath* the local `alcops.json`, so each project can still override individual settings.
+
+Use `Extends.Source` to load the central `alcops.json` as the base for the project configuration:
 
 ```json
 {
@@ -65,19 +92,25 @@ The referenced configuration provides the base values, and settings specified in
 - Nested objects are merged property by property.
 - A referenced configuration cannot declare its own `Extends` section; inheritance chains are not supported.
 
-Successfully loaded configurations are cached per workspace path during the analyzer session. Each compilation uses a consistent configuration snapshot. HTTP requests use a five-second timeout and accept at most **1 MiB (1,048,576 bytes)** of response content. The size limit also applies to chunked responses and responses without a `Content-Length` header.
+#### Loading behavior and limits
 
-If a declared `Extends` source cannot be resolved, **the entire configuration falls back to the built-in defaults**. Neither the inherited settings nor the local overrides are applied. This includes unreachable sources, HTTP errors, timeouts, oversized HTTP responses, unreadable files, malformed JSON, incompatible setting values, invalid `Extends.Source` declarations, and inheritance chains. A [CM0001 warning](/docs/analyzers/common/cm0001/) identifies the failing source and reason, so the fallback is visible in VS Code and command-line builds.
+**Fetching**
 
-For example, with a local `CyclomaticComplexityThreshold` of `41` and an unavailable base configuration, the effective threshold is the built-in default `8`. Keeping `41` would apply only part of the intended configuration.
+- HTTP(S) requests use a **five-second timeout** and accept at most **1 MiB (1,048,576 bytes)** of response content. The size limit also applies to chunked responses and responses without a `Content-Length` header.
+- The first analysis using an uncached HTTP source — and each retry after a failure cooldown — can wait up to that five-second timeout. Cancelling the analysis also cancels the request; cancellation never produces CM0001, caches a failed result, or starts a cooldown.
 
-Unknown top-level setting names are handled separately: recognized settings still apply, with one `CM0001` warning per unknown name in either configuration. An invalid value in the base configuration is still an error even when a local override would replace it.
+**Failure is all-or-nothing**
 
-Failed HTTP requests are cached per workspace path for **30 seconds after the failed request completes**. This covers network errors, timeouts, HTTP error statuses and oversized response bodies. Compilations during this cooldown reuse defaults and CM0001 without fetching again, so offline editing does not trigger another request on every analysis pass. Cache hits do not extend the cooldown. After it expires, the first new compilation requesting settings makes one shared retry; another failed request starts a new 30-second cooldown. A successful retry stays cached for the analyzer session. Existing compilations keep their original settings and diagnostic snapshot, even after recovery. There is no timer or background refresh.
+- If a declared `Extends` source cannot be resolved, **the entire configuration falls back to the built-in defaults** — neither the inherited settings nor the local overrides are applied. For example, with a local `CyclomaticComplexityThreshold` of `41` and an unavailable base, the effective threshold is the default `8`; keeping `41` would apply only part of the intended configuration.
+- This covers unreachable sources, HTTP errors, timeouts, oversized responses, unreadable files, malformed JSON, incompatible setting values, invalid `Extends.Source` declarations, and inheritance chains.
+- A [CM0001 warning](/docs/analyzers/common/cm0001/) identifies the failing source and reason, so the fallback is visible in VS Code and command-line builds.
+- Unknown top-level setting names are handled separately: recognized settings still apply, with one CM0001 per unknown name in either configuration. An invalid value in the base configuration is an error even when a local override would replace it.
 
-The first analysis using an uncached HTTP source, and each retry after the cooldown, can wait for up to the five-second request timeout. Cancelling that analysis also cancels the request. Cancellation does not produce CM0001, cache a failed result or start a new cooldown.
+**Caching and reloads**
 
-Successfully loaded settings and deterministic configuration errors, such as malformed JSON or an invalid source declaration, remain cached for the analyzer session. After changing these, restart the analyzer process; in VS Code, use **Developer: Reload Window**. Command-line builds reload settings when a new compiler process starts.
+- Successfully loaded configurations are cached per workspace path for the analyzer session, and each compilation uses a consistent snapshot.
+- Failed HTTP requests are cached per workspace path for **30 seconds after the failed request completes** (network errors, timeouts, HTTP error statuses, oversized bodies). During the cooldown, compilations reuse defaults and CM0001 without fetching again, so offline editing does not re-request on every analysis pass; cache hits do not extend the cooldown. After it expires, the first compilation that needs settings makes one shared retry — a success is cached for the session, another failure starts a new 30-second cooldown. Existing compilations keep their original settings and diagnostic snapshot even after recovery; there is no timer or background refresh.
+- Deterministic errors, such as malformed JSON or an invalid source declaration, are also cached for the session. After changing these settings, restart the analyzer process; in VS Code, use **Developer: Reload Window**. Command-line builds reload when a new compiler process starts.
 
 ### NamingPatterns
 
