@@ -78,6 +78,6 @@ Choose the approach that fits your workflow:
 - **[VS Code](../vscode/)** — Install the extension and start getting diagnostics immediately (recommended for development)
 - **[Command Line](../command-line/)** — Use `alc.exe` with analyzer DLLs directly
 - **[CI/CD Pipelines](../cicd/)** — Run ALCops in GitHub Actions or Azure DevOps builds
-- **[MCP Server](../ai-tooling/)** — Let AI assistants analyze your AL code through the Model Context Protocol
+- **[MCP Server](../ai-tooling/)** — Give Claude Code, Copilot, Cursor and other assistants ALCops code fixes and Microsoft's AL tooling through the Model Context Protocol
 
 Already using BusinessCentral.LinterCop? See [LinterCop Migration](../../lintercop-migration/) for a complete diagnostic mapping.
