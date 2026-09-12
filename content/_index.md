@@ -62,7 +62,7 @@ GitHub with AL-Go and Azure DevOps with the ALCops pipeline task both run the sa
 {{% /blocks/feature %}}
 
 {{% blocks/feature icon="fa-solid fa-robot" title="AI assistants" url="docs/getting-started/ai-tooling/" url_text="Connect the MCP server" %}}
-The MCP server exposes the analyzers to Claude, Cursor and other assistants. An assistant can analyze a file, look up a rule and apply its code fix without leaving the conversation.
+The MCP server gives Claude Code, GitHub Copilot, Cursor and Codex the ALCops code fixes plus Microsoft's AL tooling. An assistant can compile, look up a rule and apply its code fix without leaving the conversation.
 {{% /blocks/feature %}}
 
 {{% /blocks/section %}}
