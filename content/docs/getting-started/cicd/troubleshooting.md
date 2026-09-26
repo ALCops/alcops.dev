@@ -57,6 +57,7 @@ The ALCops analyzer DLLs themselves do not need execute permissions. This issue 
 **Symptom**: The compiler reports that an analyzer file does not exist at the specified path.
 
 **Cause**: The path passed to `/analyzer:` does not resolve correctly. Common reasons:
+
 - Using relative paths in a context where the working directory is different
 - Variable expansion failed (empty variable)
 
@@ -103,6 +104,7 @@ Verbose output goes to stderr, so it does not interfere with JSON output on stdo
 **Cause**: The detection source resolves a different version than the one actually used for compilation. For example, `detectUsing: "latest"` resolves the newest NuGet DevTools version, but your pipeline has an older version pinned in a `dotnet tool install` command.
 
 **Fix**: Keep detection and compilation in sync:
+
 - If you pin a specific DevTools version in your pipeline, pass that same version to `detectUsing`.
 - If you use `latest` for detection, also use `latest` in your tool installation.
 

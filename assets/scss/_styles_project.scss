@@ -50,3 +50,11 @@
     color: var(--bs-info-text-emphasis);
   }
 }
+// Landing page: in dark mode Docsy renders `white` sections with the body
+// background, which is the same shade as the `dark` section. Give dark
+// sections their own tone so adjacent bands stay distinguishable.
+@include color-mode(dark) {
+  .td-box--dark {
+    background-color: var(--bs-tertiary-bg);
+  }
+}

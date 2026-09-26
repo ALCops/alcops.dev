@@ -1,0 +1,14 @@
+# lychee configuration for the scheduled External link check
+# (.github/workflows/link-check.yaml).
+#
+# github.com enforces an aggressive rate limit on unauthenticated web-page
+# requests. Bursting past it makes github.com return a multi-minute rate-limit
+# reset, which lychee caps to 60s and reports as:
+#   "Host github.com sent an unexpectedly big rate limit backoff duration ..."
+# A GITHUB_TOKEN raises the REST API limit, but plain github.com web-page checks
+# (/blob/, /tree/, /releases, anchors) don't use the API, so a burst still trips
+# the limit. Throttling requests to github.com keeps us under it, so the warning
+# never appears. Other hosts are unaffected.
+[hosts."github.com"]
+concurrency = 2
+request_interval = "1s"

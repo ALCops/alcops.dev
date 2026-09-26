@@ -87,7 +87,7 @@ Use auto-detection or an explicit detection source instead.
 
 ## ALOps integration
 
-If you use [ALOps](https://marketplace.visualstudio.com/items?itemName=HodorNV.intelli-ship-al-tools) for compilation, add `ALCopsDownloadAnalyzers@1` before the ALOps compile task. Pass the analyzer DLLs via the `al_analyzer` (v1) or `alcodeanalyzer` (v2/v3) parameter. See [Examples](examples/) for working snippets.
+If you use [ALOps](https://marketplace.visualstudio.com/items?itemName=Hodor.hodor-alops) for compilation, add `ALCopsDownloadAnalyzers@1` before the ALOps compile task. Pass the analyzer DLLs via the `al_analyzer` (v1) or `alcodeanalyzer` (v2/v3) parameter. See [Examples](examples/) for working snippets.
 
 ## Alternative: CLI
 

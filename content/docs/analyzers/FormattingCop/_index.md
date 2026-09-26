@@ -4,7 +4,7 @@ type: docs
 no_list: true
 ---
 
-The FormattingCop enforces consistent formatting and visual structure of AL code. These rules are purely stylistic and they do not affect logic or runtime behavior.
+FormattingCop inspects layout: casing, spacing, blank lines and ordering. The rules are purely visual and never change behavior. They exist so a codebase reads the same regardless of who wrote which file.
 
 ## Rules
 

@@ -1,0 +1,14 @@
+# URLs the scheduled lychee job should skip (regex, one per line).
+#
+# Internal links and images are validated by htmltest on every PR
+# (see .htmltest.yml), so lychee only checks third-party external links —
+# skip our own domain here (link-check.yaml resolves internal links to it
+# via --base-url https://alcops.dev).
+^https://alcops\.dev
+
+# Add known-flaky or bot-blocking external hosts below as they surface.
+
+# Bot-blocking hosts that 403 lychee's default user-agent from CI (links are valid).
+^https://stackoverflow\.com
+^https://(www\.)?npmjs\.com
+^https://itnext\.io

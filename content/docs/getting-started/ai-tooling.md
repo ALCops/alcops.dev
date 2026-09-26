@@ -5,59 +5,111 @@ weight: 50
 type: docs
 ---
 
-The [ALCops MCP server](https://github.com/ALCops/mcp-server) brings AL code analysis to AI assistants through the [Model Context Protocol](https://modelcontextprotocol.io/). It lets Claude, Cursor, and other MCP-compatible clients analyze Business Central AL projects, browse rules, and apply code fixes — all without leaving the conversation.
+The [ALCops MCP server](https://github.com/ALCops/mcp-server) gives AI assistants — Claude Code, GitHub Copilot, Cursor, Codex and any other [MCP](https://modelcontextprotocol.io/) client — the ALCops code fixes and rule lookup, and proxies Microsoft's own AL MCP server (`almcp`) so compiling, diagnostics, symbols, publishing and tests come through the same connection. One server entry in your client, everything an assistant needs to fix AL code.
+
+## Prerequisites
+
+- [.NET 10](https://dotnet.microsoft.com/download/dotnet/10.0) SDK or runtime.
+- Microsoft BC Development Tools **v18.0 or later**. The recommended way to get them is the dotnet tool:
+
+  ```shell
+  dotnet tool install -g Microsoft.Dynamics.BusinessCentral.Development.Tools
+  ```
+
+  If you already have the [AL Language](https://marketplace.visualstudio.com/items?itemName=ms-dynamics-smb.al) VS Code extension, that install is optional — the server detects the extension's tools automatically.
+
+v17 and earlier are not supported. The server checks the dotnet tool store before the AL extension, takes the newest version it finds there, and logs which directory it used; `--devtools-path` overrides the search. See [how the server finds the tools](https://github.com/ALCops/mcp-server#bc-devtools-resolution) for the full probe order.
 
 ## Install
-
-Install the MCP server as a .NET global tool:
 
 ```shell
 dotnet tool install -g ALCops.Mcp
 ```
 
-## Configuration
+Upgrade later with `dotnet tool update -g ALCops.Mcp`.
 
-Add the server to your MCP client configuration.
+## Connect your assistant
 
-```json
+The server speaks MCP over stdio, so every client is a one-line entry.
+
+{{< tabpane persist=false >}}
+{{< tab header="Claude Code" lang="shell" >}}
+claude mcp add --scope project alcops -- alcops-mcp
+
+# writes .mcp.json:
+# { "mcpServers": { "alcops": { "type": "stdio", "command": "alcops-mcp" } } }
+{{< /tab >}}
+{{< tab header="VS Code / Copilot" lang="json" >}}
 {
-    "mcpServers": {
-        "alcops": {
-            "command": "alcops-mcp"
-        }
+  "servers": {
+    "alcops": {
+      "type": "stdio",
+      "command": "alcops-mcp"
     }
+  }
 }
-```
+{{< /tab >}}
+{{< tab header="Cursor" lang="json" >}}
+{
+  "mcpServers": {
+    "alcops": {
+      "command": "alcops-mcp"
+    }
+  }
+}
+{{< /tab >}}
+{{< tab header="Codex" lang="toml" >}}
+[mcp_servers.alcops]
+command = "alcops-mcp"
+{{< /tab >}}
+{{< /tabpane >}}
 
-## Available Tools
+Claude Code writes the entry to `.mcp.json` in the project. VS Code reads `.vscode/mcp.json` — note that its top-level key is `servers`, not `mcpServers`. Cursor reads `.cursor/mcp.json` for a single project or `~/.cursor/mcp.json` globally, and Codex reads `~/.codex/config.toml`, which `codex mcp add alcops -- alcops-mcp` writes for you.
 
-The MCP server exposes 4 tools (~1,020 tokens of schema overhead):
+Start the client from the folder that holds your AL project, or point the server at it with `--projects`. The server discovers `app.json` downward from the working directory, reads that project's `.vscode/settings.json`, and starts `almcp` with the same configuration.
+
+## What the assistant gets
+
+Four tools are served by ALCops itself:
 
 | Tool | Description |
 |------|-------------|
-| `analyze` | Run analyzers on an AL project or file. Returns diagnostics with severity, location, and code fix availability. |
-| `list_rules` | List all available analyzer rules with metadata (ID, title, severity, category, cop). |
-| `get_fixes` | Get available code fixes for a specific diagnostic at a location. |
-| `apply_fix` | Apply a code fix and return the modified source — does **not** write to disk. |
+| `list_rules` | List analyzer rules with metadata (ID, title, severity, category, cop). |
+| `get_fixes` | Get available code fixes for a diagnostic at a location. |
+| `apply_fix` | Apply a code fix. Writes the fixed content to the file on disk. |
+| `apply_fix_all` | Apply a fix to every occurrence of a rule across a project or file (like VS Code's "Fix all in workspace"). Writes to disk unless `dryRun` is set. |
+
+Alongside them come Microsoft's `al_*` tools, proxied from `almcp`: `al_compile`, `al_build`, `al_getdiagnostics`, `al_symbolsearch`, `al_publish`, `al_run_tests`, translations, object IDs and more. The exact set depends on your installed BC Development Tools version; the [README](https://github.com/ALCops/mcp-server#proxied-from-microsofts-almcp) lists them all. If your client already registers `almcp` itself, start the server with `--no-proxy` so the `al_*` tools do not show up twice.
 
 ## Analyzers
 
-The server always includes ALCops' six built-in analyzers. Additionally, it can load **BC standard analyzers** (`${CodeCop}`, `${UICop}`, `${PerTenantExtensionCop}`, `${AppSourceCop}`) and **third-party analyzers** — auto-discovered from `al.codeAnalyzers` in `.vscode/settings.json`, or passed explicitly via the `analyzers` tool parameter.
+Nothing is bundled. The server loads exactly the analyzers your project configures in `.vscode/settings.json` — ALCops cops and BC's standard cops through `al.codeAnalyzers`, severities through `al.ruleSetPath`, symbols through `al.packageCachePath` — and passes the same configuration to `almcp`, so `al_compile` and `get_fixes` agree about which rules run and which are suppressed.
 
-## BC Development Tools Resolution
+```json
+{
+  "al.codeAnalyzers": [
+    "${CodeCop}",
+    "${analyzerFolder}ALCops.LinterCop.dll"
+  ]
+}
+```
 
-The server needs Microsoft BC Development Tools at runtime (not bundled due to licensing). On startup it searches, in order:
+The [VS Code](../vscode/#manual-setup-without-the-extension) page shows the full `al.codeAnalyzers` list, and [Configuration](../configuration/#ruleset-files-rulesetjson) covers rulesets and `alcops.json`.
 
-1. `BCDEVELOPMENTTOOLSPATH` environment variable
-2. AL Language VS Code extension
-3. Local cache (`~/.alcops/cache/devtools/`)
-4. .NET global tools cache
-5. Auto-download from NuGet (first run only)
+## Recommended agent workflow
 
-Most developers have the AL Language extension installed, so **no extra setup is needed**.
+Drop this into your `AGENTS.md` or `CLAUDE.md` so the assistant uses the tools in the right order:
 
-## Other AI Integrations
+```markdown
+After changing AL code:
 
-{{% alert title="Under Investigation" color="warning" %}}
-We are exploring additional integration paths for GitHub Copilot and other AI-assisted development tools. This page will be updated as new integrations become available.
+1. Run `al_compile` with `onlyErrors: false` and fix any errors.
+2. For every ALCops warning (rule IDs like LC0020, AC0012, ...), call `get_fixes` at its
+   location and apply the fix with `apply_fix`; use `apply_fix_all` when the same rule
+   repeats across the project.
+3. Re-run `al_compile` until it is clean.
+```
+
+{{% alert title="al_compile hides warnings by default" color="warning" %}}
+`al_compile` defaults to `onlyErrors: true`, and nearly every ALCops rule is a *warning*. Pass `onlyErrors: false` or the assistant sees no cop diagnostics at all.
 {{% /alert %}}

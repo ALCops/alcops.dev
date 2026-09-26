@@ -58,8 +58,6 @@ table 50100 "Service Request"
 }
 {{< /highlight >}}
 
-
-
 ### When the diagnostic is reported
 
 - The table has a single-field primary key of type Code or Text with `NotBlank = true`

@@ -4,7 +4,7 @@ type: docs
 no_list: true
 ---
 
-The ApplicationCop enforces Business Central application conventions and design standards. It validates how tables, pages, enums, labels, permissions, and metadata should be modeled. Violating these rules won’t break your code at the platform level, but leads to inconsistent user experience, non-standard extensions, or objects that don’t integrate well with the broader Business Central application framework
+ApplicationCop inspects how objects are modeled: tables, fields, pages, enums, labels and permissions. Flagged code compiles and runs, but the object behaves unlike the standard application: a primary key that accepts a blank value, an action without a caption. Where PlatformCop asks whether code works, ApplicationCop asks whether it fits Business Central.
 
 ## Rules
 
