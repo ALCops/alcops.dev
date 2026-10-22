@@ -43,6 +43,6 @@ ApplicationCop inspects how objects are modeled: tables, fields, pages, enums, l
 | [AC0031](ac0031/) | Table data access requires explicit object permissions | Info | ✓ | ✓ |
 | [AC0032](ac0032/) | Unused permission declared | Info | ✓ | ✓ |
 | [AC0033](ac0033/) | Send Rest Client requests through an Http Client Handler in this app | Info | — | |
-| [AC0034](ac0034/) | Telemetry requires a Telemetry Logger implementation | Warning | ✓ | |
+| [AC0034](ac0034/) | Register a Telemetry Logger in this app | Info | — | |
 
 **Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's ruleset file.
