@@ -47,3 +47,5 @@ PlatformCop inspects AL code for constructs the platform rejects, ignores, or ex
 | [PC0036](pc0036/) | SetRecord() does not support temporary records | Warning | ✓ | |
 | [PC0037](pc0037/) | Use Validate() instead of direct field assignment | Warning | ✓ | ✓ |
 | [PC0038](pc0038/) | Not all code paths return a value | Info | ✓ | |
+| [PC0040](pc0040/) | TryFunction database write is not rolled back | Warning | ✓ | |
+| [PC0041](pc0041/) | Call may write to the database inside a TryFunction | Hidden | | |
