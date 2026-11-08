@@ -59,6 +59,16 @@ jobs:
           key: hugo-${{ runner.os }}-${{ hashFiles('go.sum', 'package-lock.json') }}
           restore-keys: |
             hugo-${{ runner.os }}-
+      - name: Sync Hugo npm metadata
+        # Regenerates packages/hugoautogen/hugo_packagemeta.json on the runner. Hugo
+        # hashes package.json into that checksum, so any version bump (e.g. from
+        # Dependabot) would otherwise trip the "npm dependencies are out of sync"
+        # warning, which --panicOnWarning turns into a build failure. Runs before
+        # npm ci so a real change to module dependencies still fails loudly as a
+        # lock-file mismatch.
+        env:
+          HUGO_CACHEDIR: ${{ runner.temp }}/hugo_cache
+        run: hugo mod npm pack
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
       - name: Build with Hugo
