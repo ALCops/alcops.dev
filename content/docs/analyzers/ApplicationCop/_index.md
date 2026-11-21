@@ -45,5 +45,6 @@ ApplicationCop inspects how objects are modeled: tables, fields, pages, enums, l
 | [AC0033](ac0033/) | Send Rest Client requests through an Http Client Handler in this app | Info | — | |
 | [AC0034](ac0034/) | Register a Telemetry Logger in this app | Info | — | |
 | [AC0035](ac0035/) | Rest Client is not initialized with a custom Http Client Handler | Warning | ✓ | |
+| [AC0036](ac0036/) | Action property duplicates the value of its RunObject target | Info | ✓ | |
 
 **Note:** Rules marked with "—" in the Enabled column are disabled by default and must be explicitly enabled in your project's ruleset file.
