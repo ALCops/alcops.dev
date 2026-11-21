@@ -21,7 +21,7 @@ The backslash renders as literal text instead of a line break.
 >
 > — [Guidelines for tooltip text](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/user-assistance#guidelines-for-tooltip-text) on Microsoft Learn
 
-Remove the escape sequence and keep the text as a single continuous sentence.
+Remove the escape sequence and keep the text as a single continuous sentence. The rule checks ToolTips on table fields, page fields, page actions and analysis views, and the object-level ToolTip of pages and reports.
 
 ### Example
 

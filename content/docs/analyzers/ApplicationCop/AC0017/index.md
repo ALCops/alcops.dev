@@ -28,7 +28,7 @@ A long ToolTip expands into a block that overwhelms the page.
 >
 > — [Guidelines for tooltip text](https://learn.microsoft.com/en-us/dynamics365/business-central/dev-itpro/user-assistance#guidelines-for-tooltip-text) on Microsoft Learn
 
-Shorten the ToolTip to focus on the single most important piece of information the user needs.
+Shorten the ToolTip to focus on the single most important piece of information the user needs. The limit applies to ToolTips on table fields, page fields, page actions and analysis views, and the object-level ToolTip of pages and reports.
 
 ### Example
 
