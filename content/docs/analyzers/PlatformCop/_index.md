@@ -38,7 +38,7 @@ PlatformCop inspects AL code for constructs the platform rejects, ignores, or ex
 | [PC0027](pc0027/) | Avoid triggering table logic on temporary records | Warning | ✓ | |
 | [PC0028](pc0028/) | Table relation field length mismatch | Warning | ✓ | |
 | [PC0029](pc0029/) | Use CreateSequentialGuid for key fields | Info | ✓ | ✓ |
-| [PC0030](pc0030/) | Use partial records on read operation | Info | ✓ | ✓ |
+| [PC0030](pc0030/) | Use partial records when looping over records | Info | ✓ | ✓ |
 | [PC0031](pc0031/) | Partial records cause JIT load on full-field operations | Warning | ✓ | ✓ |
 | [PC0032](pc0032/) | Report layout property exceeds maximum length | Error | ✓ | |
 | [PC0033](pc0033/) | Duplicate OData EntityName on page controls | Warning | ✓ | |
