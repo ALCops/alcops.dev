@@ -34,6 +34,11 @@ updates:
     labels:
       - "dependencies"
       - "npm"
+    ignore:
+      # Versions come from the Docsy Hugo module (hugo mod npm pack) and are
+      # regenerated in CI; bump them by upgrading Docsy through gomod instead.
+      - dependency-name: "bootstrap"
+      - dependency-name: "@fortawesome/fontawesome-free"
     groups:
       npm-dependencies:
         patterns:
