@@ -174,12 +174,7 @@ The `Manifest` object configures opt-in ApplicationCop checks for `app.json`. Ea
 
 | Rule | Manifest property |
 |------|-------------------|
-| [AC0037](../analyzers/applicationcop/ac0037/) | `publisher` |
-| [AC0038](../analyzers/applicationcop/ac0038/) | `contextSensitiveHelpUrl` |
-| [AC0039](../analyzers/applicationcop/ac0039/) | `resourceExposurePolicy` |
-| [AC0040](../analyzers/applicationcop/ac0040/) | `features` |
-| [AC0041](../analyzers/applicationcop/ac0041/) | `suppressWarnings` |
-| [AC0042](../analyzers/applicationcop/ac0042/) | `version` / `application` |
+| [AC0037](../../analyzers/applicationcop/ac0037/) | `publisher` |
 
 {{% alert title="Note" %}}
 The `alcops.json` file is read when the analyzer loads. In VS Code, changes to this file require reloading the window (`Ctrl+Shift+P` → **Developer: Reload Window**) to take effect.
