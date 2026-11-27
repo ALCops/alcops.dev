@@ -29,6 +29,7 @@ The `alcops.json` file provides analyzer-specific configuration. Place it in the
 | `MaintainabilityIndexThreshold` | integer | `20` | Minimum maintainability index before a diagnostic is reported |
 | `LanguagesToTranslate` | string[] | `null` | Language codes to check for missing translations |
 | `NamingPatterns` | object | `null` | Per-target naming pattern overrides |
+| `Manifest` | object | `{}` | Opt-in ApplicationCop checks for app.json conventions; all six related rules are disabled by default |
 | `UseSequentialGuidScope` | string | `null` | Set to `"AllGuidFields"` to require sequential GUIDs on all GUID fields |
 
 Property names are case-insensitive. Comments and trailing commas are allowed. An empty, whitespace-only, comment-only or JSON-null local file uses defaults without CM0001. A declared inherited configuration must still contain a JSON object.
@@ -144,6 +145,41 @@ Specify which language codes must have translations present in the `.xlf` files.
     "LanguagesToTranslate": ["da-DK", "de-DE"]
 }
 ```
+
+### Manifest
+
+The `Manifest` object configures opt-in ApplicationCop checks for `app.json`. Each rule must also be enabled in the project's `.ruleset.json`; all six are disabled by default.
+
+```json
+{
+    "Manifest": {
+        "Publisher": {
+            "AllowPattern": "^Contoso Ltd\\.$"
+        },
+        "ContextSensitiveHelpUrl": {
+            "AllowPattern": "^https://help\\.contoso\\.example/.+$"
+        },
+        "ResourceExposurePolicy": {
+            "AllowDebugging": false,
+            "AllowDownloadingSource": false
+        },
+        "RequiredFeatures": ["NoImplicitWith", "TranslationFile"],
+        "DisallowSuppressWarnings": true,
+        "VersionMajorMatchesApplication": true
+    }
+}
+```
+
+`Publisher` and `ContextSensitiveHelpUrl` accept `AllowPattern` and `DisallowPattern` regular expressions. `ResourceExposurePolicy` compares only the boolean flags you configure. `RequiredFeatures` lists compiler feature names from the app manifest; a feature unknown to the compiler version being used is ignored. `DisallowSuppressWarnings` and `VersionMajorMatchesApplication` default to `false`.
+
+| Rule | Manifest property |
+|------|-------------------|
+| [AC0037](../analyzers/applicationcop/ac0037/) | `publisher` |
+| [AC0038](../analyzers/applicationcop/ac0038/) | `contextSensitiveHelpUrl` |
+| [AC0039](../analyzers/applicationcop/ac0039/) | `resourceExposurePolicy` |
+| [AC0040](../analyzers/applicationcop/ac0040/) | `features` |
+| [AC0041](../analyzers/applicationcop/ac0041/) | `suppressWarnings` |
+| [AC0042](../analyzers/applicationcop/ac0042/) | `version` / `application` |
 
 {{% alert title="Note" %}}
 The `alcops.json` file is read when the analyzer loads. In VS Code, changes to this file require reloading the window (`Ctrl+Shift+P` → **Developer: Reload Window**) to take effect.
