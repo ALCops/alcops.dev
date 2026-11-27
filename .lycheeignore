@@ -6,6 +6,11 @@
 # via --base-url https://alcops.dev).
 ^https://alcops\.dev
 
+# Docsy "View page source" links into this repo (one per page). They point at our
+# own content files, which htmltest already covers, and their volume trips
+# github.com's rate limit (503s, see issue #240).
+^https://github\.com/ALCops/alcops\.dev/tree/main/
+
 # Add known-flaky or bot-blocking external hosts below as they surface.
 
 # Bot-blocking hosts that 403 lychee's default user-agent from CI (links are valid).
